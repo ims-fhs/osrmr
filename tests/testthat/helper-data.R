@@ -1,2 +1,8 @@
-plattform <- "mac" # or "windows"
-osrm_path <- "/Users/adrianschmid/Documents/OSRM/osrm-backend/build/" # or "C:/OSRM/"
+if (Sys.info()[[1]] == "Windows") {
+  plattform <- "windows" # or "mac"
+} # ............................................................................ Add result MAC from SCN
+
+if (plattform == "windows") {
+  osrm_path <- "C:/OSRM/" # or "/Users/adrianschmid/Documents/OSRM/osrm-backend/build/"
+} # ............................................................................ Add result MAC from SCN
+

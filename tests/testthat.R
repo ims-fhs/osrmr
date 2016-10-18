@@ -1,4 +1,4 @@
 library(testthat)
-library(OSRM)
+library(osrmr)
 
-test_check("OSRM")
+test_check("osrmr")

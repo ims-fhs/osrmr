@@ -4,11 +4,11 @@
 #'
 #' @return NULL
 #' @export
-prepare_map <- function(osrm_path, plattform = "windows"){ # .......................................... ???
+prepare_map <- function(osrm_path, plattform = "windows"){
   wd <- getwd()
   setwd(osrm_path)
-  ifelse(plattform == "windows",
-         shell('osrm-prepare switzerland-exact.osrm', wait=F),
+  ifelse(plattform == "windows", # ............................................. if else better readable
+         shell('osrm-prepare switzerland-exact.osrm >nul 2>nul', wait=F),
          system('osrm-prepare switzerland-exact.osrm', wait=F)
   )
   setwd(wd)
@@ -25,7 +25,7 @@ run_server <- function(osrm_path, plattform){
   wd <- getwd()
   setwd(osrm_path)
   if(plattform == "windows") {
-    error_code <- shell('osrm-routed switzerland-exact.osrm', wait=F)
+    error_code <- shell('osrm-routed switzerland-exact.osrm >nul 2>nul', wait=F)
   } else if(plattform == "mac") {
     error_code <- system(paste0(
       osrm_path, 'osrm-routed switzerland-latest.osrm'), wait=F)
@@ -43,12 +43,13 @@ run_server <- function(osrm_path, plattform){
 #' @return NULL
 #' @export
 quit_server <- function() {
-  shell("TaskKill /F /IM osrm-routed.exe")
+  shell("TaskKill /F /IM osrm-routed.exe >nul 2>nul")
   return(NULL)
 }
 
 #' Calculate route from source to destination (both given in WGS84). osrm chooses
-#' the nearest point which can be accessed with a car
+#' the nearest point which can be accessed with a car. Be careful: Not all
+#' combinations of api_version and localhost are possible
 #'
 #' @param lat1, A number
 #' @param lng1, A number
@@ -61,7 +62,6 @@ quit_server <- function() {
 #' @return route
 #' @export
 viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhost) {
-  # Be careful: Not all combinations of api_version and localhost are possible
   message(paste0("Use OSRM for ", paste(lat1, lng1, lat2, lng2, sep = ", ")))
   if (!localhost) {
     address <- "http://router.project-osrm.org"
@@ -70,12 +70,12 @@ viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhos
   }
 
   if (api_version == 4) {
-    R.utils::evalWithTimeout({ # ............................................... Nötig???
+    R.utils::evalWithTimeout({
       repeat{
         res <- try(
           route <- rjson::fromJSON(
             file = paste(address, "/viaroute?loc=",
-              lat1, ',', lng1, '&loc=', lat2, ',', lng2, sep = "", collapse = NULL)))
+                         lat1, ',', lng1, '&loc=', lat2, ',', lng2, sep = "", collapse = NULL)))
         # Handle error from try:
         if (class(res) != "try-error") {
           if (!is.null(res)) {
@@ -124,7 +124,8 @@ viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhos
 }
 
 
-#' cacluate the nearest position which can be accessed via car
+#' cacluate the nearest position which can be accessed via car. Be careful: Not
+#' all combinations of api_version and localhost are possible
 #'
 #' @param lat, A number
 #' @param lng, A number
@@ -134,7 +135,6 @@ viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhos
 #' @return nearest
 #' @export
 nearest <- function(lat, lng, api_version, localhost) {
-  # Be careful: Not all combinations of api_version and localhost are possible
   if (!localhost) {
     address <- "http://router.project-osrm.org"
   } else {
@@ -143,10 +143,10 @@ nearest <- function(lat, lng, api_version, localhost) {
 
   if (api_version == 4) {
     route <- rjson::fromJSON(file = paste(address, "/nearest?loc=",
-      lat, ",", lng, sep = "", NULL))
+                                          lat, ",", lng, sep = "", NULL))
   } else if (api_version == 5) {
     route <- rjson::fromJSON(file = paste(address, "/nearest/v1/driving/",
-      lng, ",", lat, "?number=1", sep = "", NULL)) # &bearings=0,20
+                                          lng, ",", lat, "?number=1", sep = "", NULL)) # &bearings=0,20
   } else {
     stop("api_version needs to be 4 or 5")
   }

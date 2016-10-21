@@ -1,14 +1,12 @@
-#' decode_osrm_geom
+#' Transform encoded polylines to lat-lng list. Code from
+#' http://stackoverflow.com/questions/32476218/how-to-decode-encoded-polylines-
+#' from-osrm-and-plotting-route-geometry
 #'
 #' @param encoded
 #'
-#' @return geometry
-#'
-decode_osrm_geom <- function(encoded) {
-  # http://stackoverflow.com/questions/32476218/how-to-decode-encoded-polylines-
-  # from-osrm-and-plotting-route-geometry
-  require(bitops)
-  require(stringr)
+#' @return data.frame with lat and lng
+#' @export
+decode_geom <- function(encoded) {
   len = str_length(encoded)
   encoded <- strsplit(encoded, NULL)[[1]]
   index = 1
@@ -50,5 +48,8 @@ decode_osrm_geom <- function(encoded) {
 
   geometry <- data.frame(array[1:df.index - 1,])
   names(geometry) <- c("lat", "lng")
+  geometry$lat <- 10 * geometry$lat # .......................................... ???
+  geometry$lng <- 10 * geometry$lng
   return(geometry)
 }
+

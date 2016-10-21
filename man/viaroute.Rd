@@ -3,7 +3,8 @@
 \name{viaroute}
 \alias{viaroute}
 \title{Calculate route from source to destination (both given in WGS84). osrm chooses
-the nearest point which can be accessed with a car}
+the nearest point which can be accessed with a car. Be careful: Not all
+combinations of api_version and localhost are possible}
 \usage{
 viaroute(lat1, lng1, lat2, lng2, instructions, api_version, localhost)
 }
@@ -27,6 +28,7 @@ route
 }
 \description{
 Calculate route from source to destination (both given in WGS84). osrm chooses
-the nearest point which can be accessed with a car
+the nearest point which can be accessed with a car. Be careful: Not all
+combinations of api_version and localhost are possible
 }
 

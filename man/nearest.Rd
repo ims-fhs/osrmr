@@ -2,7 +2,8 @@
 % Please edit documentation in R/osrmr.R
 \name{nearest}
 \alias{nearest}
-\title{cacluate the nearest position which can be accessed via car}
+\title{cacluate the nearest position which can be accessed via car. Be careful: Not
+all combinations of api_version and localhost are possible}
 \usage{
 nearest(lat, lng, api_version, localhost)
 }
@@ -19,6 +20,7 @@ nearest(lat, lng, api_version, localhost)
 nearest
 }
 \description{
-cacluate the nearest position which can be accessed via car
+cacluate the nearest position which can be accessed via car. Be careful: Not
+all combinations of api_version and localhost are possible
 }
 

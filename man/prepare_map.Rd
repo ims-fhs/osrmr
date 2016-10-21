@@ -4,7 +4,7 @@
 \alias{prepare_map}
 \title{In case of a new map: OSRM prepare (Creating the Hierarchy, creating the graph, nodeset etc..)}
 \usage{
-prepare_map(osrm_path)
+prepare_map(osrm_path, plattform = "windows")
 }
 \arguments{
 \item{osrm_path, }{A character}

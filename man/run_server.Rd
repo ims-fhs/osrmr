@@ -4,7 +4,7 @@
 \alias{run_server}
 \title{Start OSRM with map "switzerland-exact.osrm"}
 \usage{
-run_server(osrm_path)
+run_server(osrm_path, plattform)
 }
 \arguments{
 \item{osrm_path, }{A character}

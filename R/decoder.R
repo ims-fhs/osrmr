@@ -7,6 +7,7 @@
 #' @return data.frame with lat and lng
 #' @export
 decode_geom <- function(encoded) {
+  scale <- 1e-5
   len = str_length(encoded)
   encoded <- strsplit(encoded, NULL)[[1]]
   index = 1
@@ -42,14 +43,12 @@ decode_geom <- function(encoded) {
                   bitShiftR(result, 1))
     lng = lng + dlng
 
-    array[df.index,] <- c(lat = lat * 1e-6, lng = lng * 1e-6)
+    array[df.index,] <- c(lat = lat * scale, lng = lng * scale)
     df.index <- df.index + 1
   }
 
   geometry <- data.frame(array[1:df.index - 1,])
   names(geometry) <- c("lat", "lng")
-  geometry$lat <- 10 * geometry$lat # .......................................... ???
-  geometry$lng <- 10 * geometry$lng
   return(geometry)
 }
 

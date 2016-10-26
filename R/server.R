@@ -4,13 +4,19 @@
 #'
 #' @return NULL
 #' @export
-prepare_map <- function(osrm_path, plattform = "windows"){
+prepare_map <- function(osrm_path){
   wd <- getwd()
   setwd(osrm_path)
-  ifelse(plattform == "windows", # ............................................. if else better readable
-         shell('osrm-prepare switzerland-exact.osrm >nul 2>nul', wait=F),
-         system('osrm-prepare switzerland-exact.osrm', wait=F)
-  )
+  if (Sys.info()[[1]] == "Windows") {
+    plattform <- "windows" # or "mac"
+  } else {
+    # Mac
+  }
+
+  if (plattform == "windows") {
+    shell('osrm-prepare switzerland-exact.osrm >nul 2>nul', wait=F)
+    system('osrm-prepare switzerland-exact.osrm', wait=F)
+  }
   setwd(wd)
   return(NULL)
 }
@@ -21,9 +27,15 @@ prepare_map <- function(osrm_path, plattform = "windows"){
 #'
 #' @return error_code, A character
 #' @export
-run_server <- function(osrm_path, plattform){
+run_server <- function(osrm_path){
   wd <- getwd()
   setwd(osrm_path)
+  if (Sys.info()[[1]] == "Windows") {
+    plattform <- "windows" # or "mac"
+  } else {
+    # Mac
+  }
+
   if(plattform == "windows") {
     error_code <- shell('osrm-routed switzerland-exact.osrm >nul 2>nul', wait=F)
   } else if(plattform == "mac") {

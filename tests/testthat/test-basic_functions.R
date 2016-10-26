@@ -9,7 +9,7 @@ test_that("viaroute finds routes - Either (V5 + web) or (V4 + server)", {
   lng2 <- 8.335
   prec <- 0.02
 
-  run_server(osrm_path, plattform)
+  run_server(osrm_path)
 
   expect_equal(nearest(lat1, lng1, 5, F)$waypoints[[1]]$distance,
                25, tolerance = 1, scale = 1)

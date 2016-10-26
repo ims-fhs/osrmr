@@ -13,7 +13,7 @@
 #' @return route
 #' @export
 viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhost) {
-  message(paste0("Use OSRM for ", paste(lat1, lng1, lat2, lng2, sep = ", ")))
+  message(paste0("Use OSRM for ", paste(lat1, lng1, lat2, lng2, collapse = ", ")))
   if (!localhost) {
     address <- "http://router.project-osrm.org"
   } else {
@@ -37,22 +37,33 @@ viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhos
         }
       }
     }, timeout = 1, onTimeout = "warning")
-    return(res$route_summary$total_time)
+
+    if (!instructions) {
+      if (!res$status == 207) {
+        return(res$route_summary$total_time)
+      } else {
+        warning("Route not found: ", paste(lat1, lng1, lat2, lng2, collapse = ", "))
+        return(3*60) # Guess a short walk of 2 minutes.
+      }
+    } else {
+      return(res)
+    }
+    # return(res$route_summary$total_time)
   } else if (api_version == 5) {
     R.utils::evalWithTimeout({
       repeat {
         res <- try(
-          if (instructions) {
-            route <- rjson::fromJSON(
-              file = paste(address, "/route/v1/driving/",
-                           lng1, ",", lat1, ";", lng2, ",", lat2,
-                           "?overview=full", sep = "", NULL))
-          } else {
-            route <- rjson::fromJSON(
-              file = paste(address, "/route/v1/driving/",
-                           lng1, ",", lat1, ";", lng2, ",", lat2,
-                           "?overview=false", sep = "", NULL))
-          })
+          # if (instructions) { # if not necessary => always the same. Only return different?
+          #   route <- rjson::fromJSON(
+          #     file = paste(address, "/route/v1/driving/",
+          #                  lng1, ",", lat1, ";", lng2, ",", lat2,
+          #                  "?overview=full", sep = "", NULL))
+          # } else {
+          route <- rjson::fromJSON(
+            file = paste(address, "/route/v1/driving/",
+                         lng1, ",", lat1, ";", lng2, ",", lat2,
+                         "?overview=false", sep = "", NULL)))
+          # })
         # Handle error from try:
         if (class(res) != "try-error") {
           if (!is.null(res)) {
@@ -65,7 +76,12 @@ viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhos
     }, timeout = 1, onTimeout = "warning")
     assertthat::assert_that(assertthat::is.number(res$routes[[1]]$duration))
     if (!instructions) {
-      return(res$routes[[1]]$duration)
+      if (!res$status == "207") {
+        return(res$routes[[1]]$duration)
+      } else {
+        warning("Route not found: ", paste(lat1, lng1, lat2, lng2, collapse = ", "))
+        return(3*60) # Guess a short walk of 2 minutes.
+      }
     } else {
       return(res)
     }

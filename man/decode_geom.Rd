@@ -6,7 +6,7 @@
 http://stackoverflow.com/questions/32476218/how-to-decode-encoded-polylines-
 from-osrm-and-plotting-route-geometry}
 \usage{
-decode_geom(encoded)
+decode_geom(encoded, api_version)
 }
 \arguments{
 \item{encoded}{}

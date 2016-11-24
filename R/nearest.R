@@ -8,6 +8,15 @@
 #'
 #' @return nearest
 #' @export
+#'
+#' @examples
+#' osrmr:::nearest_api_v4(47,9, osrmr:::server_address(T))
+#' #        lat      lng
+#' # 1 47.02872 9.006633
+#'
+#' osrmr:::nearest_api_v5(47,9, osrmr:::server_address(F))
+#' #        lat      lng
+#' # 1 47.02871 9.006633
 nearest <- function(lat, lng, api_version = 5, localhost = F) {
   assertthat::assert_that(api_version %in% c(4,5))
 

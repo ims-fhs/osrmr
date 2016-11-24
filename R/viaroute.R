@@ -12,6 +12,13 @@
 #'
 #' @return route
 #' @export
+#'
+#' @examples
+#' osrmr:::viaroute_api_v4(47,9,48,10,F, osrmr:::server_address(T))
+#' # [1] 8250
+#'
+#' osrmr:::viaroute_api_v5(47,9,48,10,F, osrmr:::server_address(F))
+#' # [1] 8828.1
 viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhost) {
   assertthat::assert_that(api_version %in% c(4,5))
 
@@ -26,6 +33,20 @@ viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhos
 }
 
 
+#' viaroute_api_v4
+#'
+#' @param lat1
+#' @param lng1
+#' @param lat2
+#' @param lng2
+#' @param instructions
+#' @param address
+#'
+#' @return
+#'
+#' @examples
+#' osrmr:::viaroute_api_v4(47,9,48,10,F, osrmr:::server_address(T))
+#' # [1] 8250
 viaroute_api_v4 <- function(lat1, lng1, lat2, lng2, instructions, address) {
   R.utils::evalWithTimeout({
     repeat{
@@ -56,6 +77,22 @@ viaroute_api_v4 <- function(lat1, lng1, lat2, lng2, instructions, address) {
   }
 }
 
+
+
+#' viaroute_api_v5
+#'
+#' @param lat1
+#' @param lng1
+#' @param lat2
+#' @param lng2
+#' @param instructions
+#' @param address
+#'
+#' @return
+#'
+#' @examples
+#' osrmr:::viaroute_api_v5(47,9,48,10,F, osrmr:::server_address(F))
+#' # [1] 8828.1
 viaroute_api_v5 <- function(lat1, lng1, lat2, lng2, instructions, address) {
   R.utils::evalWithTimeout({
     repeat {

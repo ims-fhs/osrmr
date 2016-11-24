@@ -9,19 +9,16 @@
 #' @return nearest
 #' @export
 nearest <- function(lat, lng, api_version = 5, localhost = F) {
+  assertthat::assert_that(api_version %in% c(4,5))
+
   address <- server_address(localhost)
 
-  assertthat::assert_that(api_version %in% c(4,5))
   if (api_version == 4) {
-    route <- rjson::fromJSON(file = paste(address, "/nearest?loc=",
-                                          lat, ",", lng, sep = "", NULL))
-  } else if (api_version == 5) {
-    route <- rjson::fromJSON(file = paste(address, "/nearest/v1/driving/",
-                                          lng, ",", lat, "?number=1", sep = "", NULL)) # &bearings=0,20
+    nearest <- nearest_api_v4(lat, lng, address)
   } else {
-    stop("api_version needs to be 4 or 5")
+    nearest <- nearest_api_v5(lat, lng, address)
   }
-  return(route)
+  return(nearest)
 }
 
 
@@ -46,4 +43,27 @@ nearest_api_v4 <- function(lat, lng, address) {
   )
   return(nearest)
 }
+
+#' nearest_api_v5
+#'
+#' @param lat
+#' @param lng
+#' @param address
+#'
+#' @return nearest A data.frame with lat and lng
+
+#' @examples
+#' osrmr:::nearest_api_v5(47,9, osrmr:::server_address(F))
+#' #        lat      lng
+#' # 1 47.02871 9.006633
+nearest_api_v5 <- function(lat, lng, address) {
+  nearest <- rjson::fromJSON(file = paste(address, "/nearest/v1/driving/",
+                                          lng, ",", lat, "?number=1", sep = "", NULL))$waypoints[[1]]$location
+  nearest <- data.frame(
+    lat = nearest[2],
+    lng = nearest[1]
+  )
+  return(nearest)
+}
+
 

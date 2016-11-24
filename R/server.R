@@ -52,3 +52,24 @@ quit_server <- function() {
   return(NULL)
 }
 
+
+#' server_address
+#'
+#' @param use_localhost A binary
+#'
+#' @return address The address of a OSRM server
+#'
+#' @examples
+#' osrmr:::server_address(T)
+#' # "http://localhost:5000"
+#' osrmr:::server_address(F)
+#' # "http://router.project-osrm.org"
+server_address <- function(use_localhost) {
+  if (use_localhost == T) {
+    address <- "http://localhost:5000"
+  } else {
+    address <- "http://router.project-osrm.org"
+  }
+  return(address)
+}
+

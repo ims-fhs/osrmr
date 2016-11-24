@@ -7,15 +7,11 @@
 prepare_map <- function(osrm_path){
   wd <- getwd()
   setwd(osrm_path)
-  if (Sys.info()[[1]] == "Windows") {
-    plattform <- "windows" # or "mac"
-  } else {
-    # Mac
-  }
 
-  if (plattform == "windows") {
-    shell('osrm-prepare switzerland-exact.osrm >nul 2>nul', wait=F)
-    system('osrm-prepare switzerland-exact.osrm', wait=F)
+  if (.Platform$OS.type == "windows") {
+    shell('osrm-prepare switzerland-exact.osrm >nul 2>nul', wait = F)
+  } else {
+    system('osrm-prepare switzerland-exact.osrm', wait = F)
   }
   setwd(wd)
   return(NULL)
@@ -30,19 +26,12 @@ prepare_map <- function(osrm_path){
 run_server <- function(osrm_path){
   wd <- getwd()
   setwd(osrm_path)
-  if (Sys.info()[[1]] == "Windows") {
-    plattform <- "windows" # or "mac"
-  } else {
-    # Mac
-  }
 
-  if(plattform == "windows") {
-    error_code <- shell('osrm-routed switzerland-exact.osrm >nul 2>nul', wait=F)
-  } else if(plattform == "mac") {
-    error_code <- system(paste0(
-      osrm_path, 'osrm-routed switzerland-latest.osrm'), wait=F)
+  if (.Platform$OS.type == "windows") {
+    error_code <- shell('osrm-routed switzerland-exact.osrm >nul 2>nul', wait = F)
   } else {
-    stop("Unknown Plattform")
+    error_code <- system(paste0(
+      osrm_path, 'osrm-routed switzerland-latest.osrm'), wait = F)
   }
 
   Sys.sleep(3) # OSRM needs time
@@ -55,7 +44,11 @@ run_server <- function(osrm_path){
 #' @return NULL
 #' @export
 quit_server <- function() {
-  shell("TaskKill /F /IM osrm-routed.exe >nul 2>nul")
+  if (.Platform$OS.type == "windows") {
+    shell("TaskKill /F /IM osrm-routed.exe >nul 2>nul")
+  } else {
+    system("pkill osrm-routed")
+  }
   return(NULL)
 }
 

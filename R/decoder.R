@@ -6,8 +6,12 @@
 #'
 #' @return data.frame with lat and lng
 #' @export
-decode_geom <- function(encoded) {
-  scale <- 1e-5
+decode_geom <- function(encoded, api_version) {
+  if (api_version == 4) {
+    scale <- 1e-5
+  } else if (api_version == 5) {
+    scale <- 1e-6
+  }
   len = str_length(encoded)
   encoded <- strsplit(encoded, NULL)[[1]]
   index = 1

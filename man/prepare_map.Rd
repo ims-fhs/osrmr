@@ -12,4 +12,3 @@ prepare_map(osrm_path)
 \description{
 In case of a new map: OSRM prepare (Creating the Hierarchy, creating the graph, nodeset etc..)
 }
-

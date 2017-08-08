@@ -19,4 +19,3 @@ viaroute_api_v4
 osrmr:::viaroute_api_v4(47,9,48,10,F, osrmr:::server_address(T))
 # [1] 8250
 }
-

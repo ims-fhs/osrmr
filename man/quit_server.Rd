@@ -9,4 +9,3 @@ quit_server()
 \description{
 Quit osrm server
 }
-

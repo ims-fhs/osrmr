@@ -32,4 +32,3 @@ osrmr:::nearest_api_v5(47,9, osrmr:::server_address(F))
 #        lat      lng
 # 1 47.02871 9.006633
 }
-

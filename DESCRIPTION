@@ -1,8 +1,8 @@
 Package: osrmr
 Type: Package
 Title: osrmr - wraps the OSRM API
-Version: 0.1.12
-Date: 2017-01-10
+Version: 0.1.13
+Date: 2017-08-08
 Author: Adrian Staempfli, Christoph Strauss
 Maintainer: <adrian.staempfli@fhsg.ch>
 Description: osrmr is a Wrapper around the OSRM API
@@ -13,4 +13,4 @@ License: What license is it under?
 LazyData: TRUE
 Depends: bitops, stringr
 Suggests: testthat
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

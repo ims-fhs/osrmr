@@ -32,10 +32,9 @@ the nearest point which can be accessed with a car. Be careful: Not all
 combinations of api_version and localhost are possible
 }
 \examples{
-osrmr:::viaroute_api_v4(47,9,48,10,F, osrmr:::server_address(T))
-# [1] 8250
-
-osrmr:::viaroute_api_v5(47,9,48,10,F, osrmr:::server_address(F))
-# [1] 8828.1
+"http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=true"
+osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 5, F)
+osrmr::run_server("C:/OSRM/", "windows")
+osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 4, T) # [1] 3341
+osrmr::quit_server()
 }
-

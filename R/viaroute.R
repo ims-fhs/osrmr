@@ -21,7 +21,7 @@
 #' osrmr::quit_server()
 viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhost) {
   assertthat::assert_that(api_version %in% c(4,5))
-
+  # browser()
   message(paste0("Use OSRM for ", paste(lat1, lng1, lat2, lng2, collapse = ", "))) # SCN/SQC: move api v4 and api v5 versions into different subroutines ..............
   address <- server_address(localhost)
 
@@ -69,8 +69,10 @@ viaroute_api_v4 <- function(lat1, lng1, lat2, lng2, instructions, address) {
     if (!res$status == 207) {
       return(res$route_summary$total_time)
     } else {
-      warning("Route not found: ", paste(lat1, lng1, lat2, lng2, collapse = ", "))
-      return(3*60) # Guess a short walk of 2 minutes.
+      t_guess <- 16*60
+      warning("Route not found: ", paste(lat1, lng1, lat2, lng2, collapse = ", "),
+              ". Travel time set to ", t_guess/60 , " min.")
+      return(t_guess) # Guess a short walk of 2 minutes.
     }
   } else {
     return(res)

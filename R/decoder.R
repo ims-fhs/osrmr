@@ -12,7 +12,7 @@ decode_geom <- function(encoded, api_version) {
   } else if (api_version == 5) {
     scale <- 1e-6
   }
-  len = str_length(encoded)
+  len = stringr::str_length(encoded)
   encoded <- strsplit(encoded, NULL)[[1]]
   index = 1
   N <- 100000
@@ -25,26 +25,26 @@ decode_geom <- function(encoded, api_version) {
     repeat {
       b = as.integer(charToRaw(encoded[index])) - 63
       index <- index + 1
-      result = bitOr(result, bitShiftL(bitAnd(b, 0x1f), shift))
+      result = bitops::bitOr(result, bitops::bitShiftL(bitops::bitAnd(b, 0x1f), shift))
       shift = shift + 5
       if (b < 0x20) break
     }
-    dlat = ifelse(bitAnd(result, 1),
-                  -(result - (bitShiftR(result, 1))),
-                  bitShiftR(result, 1))
+    dlat = ifelse(bitops::bitAnd(result, 1),
+                  -(result - (bitops::bitShiftR(result, 1))),
+                  bitops::bitShiftR(result, 1))
     lat = lat + dlat;
 
     shift <- result <- b <- 0
     repeat {
       b = as.integer(charToRaw(encoded[index])) - 63
       index <- index + 1
-      result = bitOr(result, bitShiftL(bitAnd(b, 0x1f), shift))
+      result = bitops::bitOr(result, bitops::bitShiftL(bitops::bitAnd(b, 0x1f), shift))
       shift = shift + 5
       if (b < 0x20) break
     }
-    dlng = ifelse(bitAnd(result, 1),
-                  -(result - (bitShiftR(result, 1))),
-                  bitShiftR(result, 1))
+    dlng = ifelse(bitops::bitAnd(result, 1),
+                  -(result - (bitops::bitShiftR(result, 1))),
+                  bitops::bitShiftR(result, 1))
     lng = lng + dlng
 
     array[df.index,] <- c(lat = lat * scale, lng = lng * scale)

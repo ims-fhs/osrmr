@@ -11,6 +11,10 @@ Description: osrmr is a Wrapper around the OSRM API
         that run locally as well as the osrm webserver.
 License: What license is it under?
 LazyData: TRUE
-Depends: bitops, stringr
+Imports: assertthat,
+    bitops, 
+    rjson,
+    R.utils,
+    stringr
 Suggests: testthat
 RoxygenNote: 6.0.1

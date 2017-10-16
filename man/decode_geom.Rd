@@ -19,4 +19,3 @@ Transform encoded polylines to lat-lng list. Code from
 http://stackoverflow.com/questions/32476218/how-to-decode-encoded-polylines-
 from-osrm-and-plotting-route-geometry
 }
-

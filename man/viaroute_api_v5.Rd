@@ -19,4 +19,3 @@ viaroute_api_v5
 osrmr:::viaroute_api_v5(47,9,48,10,F, osrmr:::server_address(F))
 # [1] 8828.1
 }
-

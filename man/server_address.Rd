@@ -21,4 +21,3 @@ osrmr:::server_address(T)
 osrmr:::server_address(F)
 # "http://router.project-osrm.org"
 }
-

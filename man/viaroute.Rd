@@ -38,4 +38,3 @@ osrmr::run_server("C:/OSRM/", "windows")
 osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 4, T) # [1] 3341
 osrmr::quit_server()
 }
-

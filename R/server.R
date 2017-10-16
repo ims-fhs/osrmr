@@ -4,6 +4,9 @@
 #'
 #' @return error_code, A character
 #' @export
+#' @examples
+#' # Start Server on SCNs Mac
+#' osrmr::run_server("/Users/adrianschmid/Documents/OSRM/osrm-backend/build/")
 run_server <- function(osrm_path){
   wd <- getwd()
   setwd(osrm_path)

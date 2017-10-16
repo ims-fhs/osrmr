@@ -21,8 +21,26 @@ test_that("viaroute finds routes - Either (V5 + web) or (V4 + server)", {
   quit_server()
 })
 
-context("decoder")
+# # microbenchmark
+# lat1 <- 52.503033
+# lng1 <- 13.420526
+# lat2 <- 52.516582
+# lng2 <- 13.429290
+# options(microbenchmark.unit = "s")
+# suppressMessages(t9 <- summary(microbenchmark::microbenchmark(
+#   sim911::osrm_viaroute(lat1, lng1, lat2, lng2),
+#   times = 100L, unit = "ms"))$uq)
+# expect_equal(t9 < t_400ms, T)
+# # print(paste0("rjson_viaroute() took: ", round(t9, 1), " ms."))
 
+# # osrm_viaroute: ........................................................... To osrm
+# t6 <- summary(microbenchmark::microbenchmark(
+#   osrm_viaroute(48, 8, 47, 7), times = 10L, unit = "ms"))$uq
+# expect_equal(t6 < t_400ms, T)
+# # print(paste0("osrm_viaroute needs: ", round(t6, 1), " ms."))
+
+
+context("decoder")
 test_that("decoder for consistent results", {
   # skip("Skip for development of tests")
 

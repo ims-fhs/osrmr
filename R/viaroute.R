@@ -21,8 +21,6 @@
 #' osrmr::quit_server()
 viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhost) {
   assertthat::assert_that(api_version %in% c(4,5))
-  # browser()
-  message(paste0("Use OSRM for ", paste(lat1, lng1, lat2, lng2, collapse = ", "))) # SCN/SQC: move api v4 and api v5 versions into different subroutines ..............
   address <- server_address(localhost)
 
   if (api_version == 4) {
@@ -99,18 +97,10 @@ viaroute_api_v5 <- function(lat1, lng1, lat2, lng2, instructions, address) {
   R.utils::evalWithTimeout({
     repeat {
       res <- try(
-        # if (instructions) { # if not necessary => always the same. Only return different?
-        #   route <- rjson::fromJSON(
-        #     file = paste(address, "/route/v1/driving/",
-        #                  lng1, ",", lat1, ";", lng2, ",", lat2,
-        #                  "?overview=full", sep = "", NULL))
-        # } else {
         route <- rjson::fromJSON(
           file = paste(address, "/route/v1/driving/",
                        lng1, ",", lat1, ";", lng2, ",", lat2,
                        "?overview=false", sep = "", NULL)))
-      # })
-      # Handle error from try:
       if (class(res) != "try-error") {
         if (!is.null(res)) {
           break # waytime found
@@ -121,12 +111,14 @@ viaroute_api_v5 <- function(lat1, lng1, lat2, lng2, instructions, address) {
     }
   }, timeout = 1, onTimeout = "warning")
   assertthat::assert_that(assertthat::is.number(res$routes[[1]]$duration))
+
   if (!instructions) {
     if (res$code == "Ok") {
       return(res$routes[[1]]$duration)
     } else {
-      warning("Route not found: ", paste(lat1, lng1, lat2, lng2, collapse = ", "))
-      return(3*60) # Guess a short walk of 2 minutes.
+      t_guess <- 16*60
+      warning("Route not found: ", paste(lat1, lng1, lat2, lng2, collapse = ", "),
+              ". Travel time set to ", t_guess/60 , " min.")
     }
   } else {
     return(res)

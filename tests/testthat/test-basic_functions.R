@@ -16,7 +16,6 @@ test_that("viaroute finds routes - Either (V5 + web) or (V4 + server)", {
   # Test the RELATIVE difference is within prec using localhost
   # expect_equal(viaroute(lat1, lng1, lat2, lng2, F, 4, T),
   #              expected = 1812, tolerance = prec, scale = 1812)
-
   quit_server()
 })
 

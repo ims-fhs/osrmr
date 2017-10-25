@@ -17,7 +17,8 @@
 #' "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=true"
 #' osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 5, F)
 #' osrmr::run_server("C:/OSRM/", "windows")
-#' osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 4, T) # [1] 3341
+#' osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 4, T)
+#' # [1] 2365
 #' osrmr::quit_server()
 viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhost) {
   assertthat::assert_that(api_version %in% c(4,5))

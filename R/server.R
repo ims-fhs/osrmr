@@ -1,8 +1,8 @@
-#' Start OSRM with map "switzerland-exact.osrm"
+#' Start OSRM with map "switzerland-latest.osrm"
 #'
-#' @param osrm_path, A character
+#' @param osrm_path A string containing the path where OSRM is installed
 #'
-#' @return error_code, A character
+#' @return error_code A character
 #' @export
 #' @examples
 #' # Start Server on SCNs Mac
@@ -11,7 +11,12 @@ run_server <- function(osrm_path){
   wd <- getwd()
   setwd(osrm_path)
 
-  error_code <- shell('osrm-routed switzerland-latest.osrm >nul 2>nul', wait = F)
+  if (.Platform$OS.type == "windows") {
+    error_code <- shell('osrm-routed switzerland-latest.osrm >nul 2>nul', wait = F)
+  } else {
+    error_code <- system(paste0(
+      osrm_path, 'osrm-routed switzerland-latest.osrm'), wait = F)
+  }
 
   Sys.sleep(3) # OSRM needs time
   setwd(wd)

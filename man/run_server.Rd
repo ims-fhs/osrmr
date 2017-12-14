@@ -2,18 +2,18 @@
 % Please edit documentation in R/server.R
 \name{run_server}
 \alias{run_server}
-\title{Start OSRM with map "switzerland-exact.osrm"}
+\title{Start OSRM with map "switzerland-latest.osrm"}
 \usage{
 run_server(osrm_path)
 }
 \arguments{
-\item{osrm_path, }{A character}
+\item{osrm_path}{A string containing the path where OSRM is installed}
 }
 \value{
-error_code, A character
+error_code A character
 }
 \description{
-Start OSRM with map "switzerland-exact.osrm"
+Start OSRM with map "switzerland-latest.osrm"
 }
 \examples{
 # Start Server on SCNs Mac

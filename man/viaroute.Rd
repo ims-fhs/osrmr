@@ -2,40 +2,42 @@
 % Please edit documentation in R/viaroute.R
 \name{viaroute}
 \alias{viaroute}
-\title{Calculate route from source to destination (both given in WGS84). osrm chooses
-the nearest point which can be accessed with a car. Be careful: Not all
-combinations of api_version and localhost are possible}
+\title{travel time or full information of a route}
 \usage{
 viaroute(lat1, lng1, lat2, lng2, instructions, api_version, localhost)
 }
 \arguments{
-\item{lat1, }{A number}
+\item{lat1}{A numeric (-90 < lat1 < 90) -> start-destination}
 
-\item{lng1, }{A number}
+\item{lng1}{A numeric (-180 < lng1 < 180) -> start-destination}
 
-\item{lat2, }{A number}
+\item{lat2}{A numeric (-90 < lat2 < 90) -> end-destination}
 
-\item{lng2, }{A number}
+\item{lng2}{A numeric (-180 < lng2 < 180) -> end-destination}
 
-\item{instructions, }{A boolean for API V5: T = details are returned}
+\item{instructions}{A logical. If FALSE, only the traveltime (in seconds, as numeric) will be returned.
+If TRUE, more details of the route are returned (as list).}
 
-\item{api_version, }{A character}
+\item{api_version}{A numeric (either 4 or 5)}
 
-\item{localhost, }{A boolean. T = local server used}
+\item{localhost}{A logical (TRUE = localhost is used, FALSE = onlinehost is used)}
 }
 \value{
-route
+a numeric or a list (depending on parameter instructions)
 }
 \description{
-Calculate route from source to destination (both given in WGS84). osrm chooses
-the nearest point which can be accessed with a car. Be careful: Not all
-combinations of api_version and localhost are possible
+For a given start- and end-destination, viaroute() calculates route informations using OSRM.
+OSRM chooses the nearest point which can be accessed by car for the start- and end-destination.
+The coordinate-standard is WGS84.
+Attention: The OSRM API-4 is only working locally, but not with the onlinehost.
 }
 \examples{
 "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=true"
 osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 5, F)
-osrmr::run_server("C:/OSRM/", "windows")
-osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 4, T)
-# [1] 2365
-osrmr::quit_server()
+# osrmr::run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
+# osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 4, T)
+# osrmr::quit_server()
+# osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
+# osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 5, T)
+# osrmr::quit_server()
 }

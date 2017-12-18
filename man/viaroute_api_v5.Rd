@@ -2,20 +2,36 @@
 % Please edit documentation in R/viaroute.R
 \name{viaroute_api_v5}
 \alias{viaroute_api_v5}
-\title{viaroute_api_v5}
+\title{travel time or full information of a route for OSRM API 5}
 \usage{
 viaroute_api_v5(lat1, lng1, lat2, lng2, instructions, address)
 }
 \arguments{
-\item{address}{}
+\item{lat1}{A numeric (-90 < lat1 < 90) -> start-destination}
+
+\item{lng1}{A numeric (-180 < lng1 < 180) -> start-destination}
+
+\item{lat2}{A numeric (-90 < lat2 < 90) -> end-destination}
+
+\item{lng2}{A numeric (-180 < lng2 < 180) -> end-destination}
+
+\item{instructions}{A logical. If FALSE, only the traveltime (in seconds, as numeric) will be returned.
+If TRUE, more details of the route are returned (as list).}
+
+\item{address}{A character specifying the serveraddress (local or online)}
 }
 \value{
 
 }
 \description{
-viaroute_api_v5
+For a given start- and end-destination, viaroute() calculates route informations using OSRM API 5.
+OSRM chooses the nearest point which can be accessed by car for the start and destination.
+The coordinate-standard is WGS84.
+Attention: The OSRM API-4 is only working locally, but not with the onlinehost.
 }
 \examples{
-osrmr:::viaroute_api_v5(47,9,48,10,F, osrmr:::server_address(F))
-# [1] 8828.1
+# osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
+# osrmr:::viaroute_api_v5(47,9,48,10,F, osrmr:::server_address(T))
+# [1] 5485.4
+# osrmr::quit_server()
 }

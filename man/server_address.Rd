@@ -2,18 +2,19 @@
 % Please edit documentation in R/server.R
 \name{server_address}
 \alias{server_address}
-\title{server_address}
+\title{Set server address}
 \usage{
 server_address(use_localhost)
 }
 \arguments{
-\item{use_localhost}{A binary}
+\item{use_localhost}{A logical, indicating wheter to use the localhost or not.}
 }
 \value{
-address The address of a OSRM server
+character, the address of an OSRM server
 }
 \description{
-server_address
+server_address() returns an address depending on the choice of a localhost or onlinehost.
+This address can be used as a part of a OSRM server-request.
 }
 \examples{
 osrmr:::server_address(T)

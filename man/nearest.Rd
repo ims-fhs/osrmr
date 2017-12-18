@@ -2,33 +2,41 @@
 % Please edit documentation in R/nearest.R
 \name{nearest}
 \alias{nearest}
-\title{cacluate the nearest position which can be accessed via car. Be careful: Not
-all combinations of api_version and localhost are possible}
+\title{nearest accessible position}
 \usage{
 nearest(lat, lng, api_version = 5, localhost = F)
 }
 \arguments{
-\item{lat, }{A number}
+\item{lat, }{A numeric (-90 < lat < 90)}
 
-\item{lng, }{A number}
+\item{lng, }{A numeric (-180 < lng < 180)}
 
-\item{api_version, }{A character}
+\item{api_version, }{A numeric (either 4 or 5)}
 
-\item{localhost, }{A boolean. T = local server used}
+\item{localhost, }{A logical (TRUE = localhost is used, FALSE = onlinehost is used)}
 }
 \value{
-nearest
+A data.frame with lat and lng
 }
 \description{
-cacluate the nearest position which can be accessed via car. Be careful: Not
-all combinations of api_version and localhost are possible
+nearest() cacluates the nearest position to the given coordinates which can be accessed by car.
+The coordinate-standard is WGS84. Attention: The OSRM API-4 is only working locally, but
+not with the onlinehost.
 }
 \examples{
-osrmr:::nearest_api_v4(47,9, osrmr:::server_address(T))
+# osrmr::nearest(47,9, 5, F)
 #        lat      lng
 # 1 47.02872 9.006633
 
-osrmr:::nearest_api_v5(47,9, osrmr:::server_address(F))
+# osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
+# osrmr:::nearest(47,9, 5, T)
 #        lat      lng
-# 1 47.02871 9.006633
+# 1 47.02872 9.006633
+# osrmr::quit_server()
+
+# osrmr::run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
+# osrmr:::nearest(47,9, 4, T)
+#        lat      lng
+# 1 47.02891 9.006577
+# osrmr::quit_server()
 }

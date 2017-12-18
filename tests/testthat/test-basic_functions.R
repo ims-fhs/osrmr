@@ -9,7 +9,7 @@ test_that("viaroute finds routes - Either (V5 + web) or (V4 + server)", {
   lng2 <- 8.335
   prec <- 0.02
 
-  run_server(osrm_path)
+  run_server(osrm_path, map_name)
   # Test the ABSOLUTE difference using web
   expect_equal(viaroute(lat1, lng1, lat2, lng2, F, api_version, localhost),
                1560, tolerance = 300, scale = 1)
@@ -49,5 +49,11 @@ test_that("decoder for consistent results", {
   expect_equal(all(dim(geometry) == c(281, 2)), T)
   expect_equal(geometry$lat[1], 46.99097)
   expect_equal(geometry$lng[1], 8.30822)
+
+  encoded_str_api_5 <- encoded_string_api_5
+  geometry_api_5 <- decode_geom(encoded_str_api_5, api_version = 5)
+  expect_equal(all(dim(geometry_api_5) == c(35, 2)), T)
+  expect_equal(geometry_api_5$lat[1], 47.100198)
+  expect_equal(geometry_api_5$lng[1], 8.099703)
 })
 

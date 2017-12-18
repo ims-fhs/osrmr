@@ -1,25 +1,31 @@
-#' Calculate route from source to destination (both given in WGS84). osrm chooses
-#' the nearest point which can be accessed with a car. Be careful: Not all
-#' combinations of api_version and localhost are possible
+#' travel time or full information of a route
 #'
-#' @param lat1, A number
-#' @param lng1, A number
-#' @param lat2, A number
-#' @param lng2, A number
-#' @param instructions, A boolean for API V5: T = details are returned
-#' @param api_version, A character
-#' @param localhost, A boolean. T = local server used
+#' For a given start- and end-destination, viaroute() calculates route informations using OSRM.
+#' OSRM chooses the nearest point which can be accessed by car for the start- and end-destination.
+#' The coordinate-standard is WGS84.
+#' Attention: The OSRM API-4 is only working locally, but not with the onlinehost.
 #'
-#' @return route
+#' @param lat1 A numeric (-90 < lat1 < 90) -> start-destination
+#' @param lng1 A numeric (-180 < lng1 < 180) -> start-destination
+#' @param lat2 A numeric (-90 < lat2 < 90) -> end-destination
+#' @param lng2 A numeric (-180 < lng2 < 180) -> end-destination
+#' @param instructions A logical. If FALSE, only the traveltime (in seconds, as numeric) will be returned.
+#'  If TRUE, more details of the route are returned (as list).
+#' @param api_version A numeric (either 4 or 5)
+#' @param localhost A logical (TRUE = localhost is used, FALSE = onlinehost is used)
+#'
+#' @return a numeric or a list (depending on parameter instructions)
 #' @export
 #'
 #' @examples
 #' "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=true"
 #' osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 5, F)
-#' osrmr::run_server("C:/OSRM/", "windows")
-#' osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 4, T)
-#' # [1] 2365
-#' osrmr::quit_server()
+#' # osrmr::run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
+#' # osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 4, T)
+#' # osrmr::quit_server()
+#' # osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
+#' # osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 5, T)
+#' # osrmr::quit_server()
 viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhost) {
   assertthat::assert_that(api_version %in% c(4,5))
   address <- server_address(localhost)
@@ -32,22 +38,30 @@ viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhos
 }
 
 
-#' viaroute_api_v4
+#' travel time or full information of a route for OSRM API 4
 #'
-#' @param lat1
-#' @param lng1
-#' @param lat2
-#' @param lng2
-#' @param instructions
-#' @param address
+#' For a given start- and end-destination, viaroute() calculates route informations using OSRM API 4.
+#' OSRM chooses the nearest point which can be accessed by car for the start and destination.
+#' The coordinate-standard is WGS84.
+#' Attention: The OSRM API-4 is only working locally, but not with the onlinehost.
+#'
+#' @param lat1 A numeric (-90 < lat1 < 90) -> start-destination
+#' @param lng1 A numeric (-180 < lng1 < 180) -> start-destination
+#' @param lat2 A numeric (-90 < lat2 < 90) -> end-destination
+#' @param lng2 A numeric (-180 < lng2 < 180) -> end-destination
+#' @param instructions A logical. If FALSE, only the traveltime (in seconds, as numeric) will be returned.
+#'  If TRUE, more details of the route are returned (as list).
+#' @param address A character specifying the serveraddress (local or online)
 #'
 #' @return
 #'
 #' @examples
-#' osrmr:::viaroute_api_v4(47,9,48,10,F, osrmr:::server_address(T))
-#' # [1] 8250
+#' # osrmr::run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
+#' # osrmr:::viaroute_api_v4(47,9,48,10,F, osrmr:::server_address(T))
+#' # [1] 10328
+#' # osrmr::quit_server()
 viaroute_api_v4 <- function(lat1, lng1, lat2, lng2, instructions, address) {
-  R.utils::evalWithTimeout({
+  R.utils::withTimeout({
     repeat{
       res <- try(
         route <- rjson::fromJSON(
@@ -80,22 +94,30 @@ viaroute_api_v4 <- function(lat1, lng1, lat2, lng2, instructions, address) {
 
 
 
-#' viaroute_api_v5
+#' travel time or full information of a route for OSRM API 5
 #'
-#' @param lat1
-#' @param lng1
-#' @param lat2
-#' @param lng2
-#' @param instructions
-#' @param address
+#' For a given start- and end-destination, viaroute() calculates route informations using OSRM API 5.
+#' OSRM chooses the nearest point which can be accessed by car for the start and destination.
+#' The coordinate-standard is WGS84.
+#' Attention: The OSRM API-4 is only working locally, but not with the onlinehost.
+#'
+#' @param lat1 A numeric (-90 < lat1 < 90) -> start-destination
+#' @param lng1 A numeric (-180 < lng1 < 180) -> start-destination
+#' @param lat2 A numeric (-90 < lat2 < 90) -> end-destination
+#' @param lng2 A numeric (-180 < lng2 < 180) -> end-destination
+#' @param instructions A logical. If FALSE, only the traveltime (in seconds, as numeric) will be returned.
+#'  If TRUE, more details of the route are returned (as list).
+#' @param address A character specifying the serveraddress (local or online)
 #'
 #' @return
 #'
 #' @examples
-#' osrmr:::viaroute_api_v5(47,9,48,10,F, osrmr:::server_address(F))
-#' # [1] 8828.1
+#' # osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
+#' # osrmr:::viaroute_api_v5(47,9,48,10,F, osrmr:::server_address(T))
+#' # [1] 5485.4
+#' # osrmr::quit_server()
 viaroute_api_v5 <- function(lat1, lng1, lat2, lng2, instructions, address) {
-  R.utils::evalWithTimeout({
+  R.utils::withTimeout({
     repeat {
       res <- try(
         route <- rjson::fromJSON(

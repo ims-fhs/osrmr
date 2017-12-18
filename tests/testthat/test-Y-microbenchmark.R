@@ -8,7 +8,7 @@ test_that("microbenchmark test for osrm package", {
   lat2 <- 46.978
   lng2 <- 8.335
 
-  run_server(osrm_path)
+  run_server(osrm_path, map_name)
   t1 <- summary(microbenchmark::microbenchmark(
     osrmr::viaroute(lat1, lng1, lat2, lng2, F, api_version, localhost),
     times = 50L, unit = "ms"))$uq

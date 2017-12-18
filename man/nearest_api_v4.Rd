@@ -2,21 +2,29 @@
 % Please edit documentation in R/nearest.R
 \name{nearest_api_v4}
 \alias{nearest_api_v4}
-\title{nearest_api_v4}
+\title{nearest accessible position for OSRM API 4}
 \usage{
 nearest_api_v4(lat, lng, address)
 }
 \arguments{
-\item{address}{}
+\item{lat, }{A numeric (-90 < lat < 90)}
+
+\item{lng, }{A numeric (-180 < lng < 180)}
+
+\item{address, }{A character specifying the serveraddress (local or online)}
 }
 \value{
-nearest A data.frame with lat and lng
+A data.frame with lat and lng
 }
 \description{
-nearest_api_v4
+nearest_api_v4() cacluates the nearest position to the given coordinates which can be accessed
+by car with the OSRM API 4. The coordinate-standard is WGS84. Attention: The OSRM API-4
+is only working locally, but not with the onlinehost.
 }
 \examples{
-osrmr:::nearest_api_v4(47,9, osrmr:::server_address(T))
+# osrmr::run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
+# osrmr:::nearest_api_v4(47,9, osrmr:::server_address(T))
 #        lat      lng
-# 1 47.02872 9.006633
+# 1 47.02891 9.006577
+# osrmr::quit_server()
 }

@@ -2,20 +2,26 @@
 % Please edit documentation in R/server.R
 \name{run_server}
 \alias{run_server}
-\title{Start OSRM with map "switzerland-latest.osrm"}
+\title{Start local OSRM server}
 \usage{
-run_server(osrm_path)
+run_server(osrm_path, map_name)
 }
 \arguments{
-\item{osrm_path}{A string containing the path where OSRM is installed}
+\item{osrm_path}{A character containing the directory of the local OSRM-engine}
+
+\item{map_name}{A character (name of your pre-built map - e.g. "switzerland-latest.osrm")}
 }
 \value{
 error_code A character
 }
 \description{
-Start OSRM with map "switzerland-latest.osrm"
+run_server() starts your local OSRM server by using a shell command (depending on
+your OS). A local (pre-biult) version of the OSRM-engine must be on your device.
+(https://github.com/Project-OSRM/osrm-backend/wiki/Building-OSRM).
 }
 \examples{
-# Start Server on SCNs Mac
-osrmr::run_server("/Users/adrianschmid/Documents/OSRM/osrm-backend/build/")
+# osrmr::run_server("C:/path/to/local/osrm_engine/", "switzerland-latest.osrm")
+# osrmr::run_server("/Users/adrianschmid/Documents/OSRM/osrm-backend/build/", "switzerland-latest.osrm")
+osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
+osrmr::run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
 }

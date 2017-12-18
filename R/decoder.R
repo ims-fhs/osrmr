@@ -1,11 +1,30 @@
-#' Transform encoded polylines to lat-lng list. Code from
-#' http://stackoverflow.com/questions/32476218/how-to-decode-encoded-polylines-
-#' from-osrm-and-plotting-route-geometry
+#' Transform encoded polylines to lat-lng data.frame.
 #'
-#' @param encoded
+#' decode_geom() uses a decoding algorithm to decode polylines. (http://stackoverflow.com/questions/32476218/how-
+#' to-decode-encoded-polylines-from-osrm-and-plotting-route-geometry)
+#'
+#' @param encoded A character containing encoded polylines
+#' @param api_version A numeric (either 4 or 5) to specify the OSRM API version
 #'
 #' @return data.frame with lat and lng
 #' @export
+#'
+#' @examples
+#' encoded_string_api_4 <- osrmr::encoded_string_api_4
+#' encoded_string_api_5 <- osrmr::encoded_string_api_5
+#' decoded_api_4 <- decode_geom(encoded_string_api_4, api_version = 4)
+#' decoded_api_5 <- decode_geom(encoded_string_api_5, api_version = 5)
+#' decoded_api_4[1:3,]
+#' #        lat     lng
+#' # 1 47.10020 8.09970
+#' # 2 47.09850 8.09207
+#' # 3 47.09617 8.09118
+#' decoded_api_5[1:3,]
+#' #        lat      lng
+#' # 1 47.10020 8.099703
+#' # 2 47.09850 8.092074
+#' # 3 47.09617 8.091181
+#' assertthat::assert_that(all.equal(decoded_api_4, decoded_api_5, tolerance = 1e-6))
 decode_geom <- function(encoded, api_version) {
   if (api_version == 4) {
     scale <- 1e-5

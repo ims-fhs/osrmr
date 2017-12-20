@@ -4,7 +4,8 @@
 #' to-decode-encoded-polylines-from-osrm-and-plotting-route-geometry)
 #'
 #' @param encoded A character containing encoded polylines
-#' @param api_version A numeric (either 4 or 5) to specify the OSRM API version
+#' @param precision A numeric (either 5 or 6) to specify the precision of [lat,lng] encoding.
+#' (OSRM API 4 used precision 5 with "polyline", OSRM API 5 uses precision 6 with "polyline6")
 #'
 #' @return data.frame with lat and lng
 #' @export
@@ -12,8 +13,8 @@
 #' @examples
 #' encoded_string_api_4 <- osrmr::encoded_string_api_4
 #' encoded_string_api_5 <- osrmr::encoded_string_api_5
-#' decoded_api_4 <- decode_geom(encoded_string_api_4, api_version = 4)
-#' decoded_api_5 <- decode_geom(encoded_string_api_5, api_version = 5)
+#' decoded_api_4 <- decode_geom(encoded_string_api_4, precision = 5)
+#' decoded_api_5 <- decode_geom(encoded_string_api_5, precision = 6)
 #' decoded_api_4[1:3,]
 #' #        lat     lng
 #' # 1 47.10020 8.09970
@@ -25,11 +26,13 @@
 #' # 2 47.09850 8.092074
 #' # 3 47.09617 8.091181
 #' assertthat::assert_that(all.equal(decoded_api_4, decoded_api_5, tolerance = 1e-6))
-decode_geom <- function(encoded, api_version) {
-  if (api_version == 4) {
+decode_geom <- function(encoded, precision = stop("a numeric, either 5 or 6")) {
+  if (precision == 5) {
     scale <- 1e-5
-  } else if (api_version == 5) {
+  } else if (precision == 6) {
     scale <- 1e-6
+  } else {
+    stop("precision not set to 5 or 6")
   }
   len = stringr::str_length(encoded)
   encoded <- strsplit(encoded, NULL)[[1]]

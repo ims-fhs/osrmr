@@ -9,7 +9,8 @@ decode_geom(encoded, precision = stop("a numeric, either 5 or 6"))
 \arguments{
 \item{encoded}{A character containing encoded polylines}
 
-\item{precision}{A numeric (either 5 or 6) to specify the precision of [lat,lng] encoding.}
+\item{precision}{A numeric (either 5 or 6) to specify the precision of [lat,lng] encoding.
+(OSRM API 4 used precision 5 with "polyline", OSRM API 5 uses precision 6 with "polyline6")}
 }
 \value{
 data.frame with lat and lng

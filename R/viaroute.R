@@ -18,13 +18,13 @@
 #' @export
 #'
 #' @examples
-#' "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=true"
-#' osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 5, F)
+#' # "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=true"
+#' osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 5, FALSE)
 #' # osrmr::run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
-#' # osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 4, T)
+#' # osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 4, TRUE)
 #' # osrmr::quit_server()
 #' # osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
-#' # osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 5, T)
+#' # osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 5, TRUE)
 #' # osrmr::quit_server()
 viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhost) {
   assertthat::assert_that(api_version %in% c(4,5))
@@ -53,11 +53,11 @@ viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhos
 #'  If TRUE, more details of the route are returned (as list).
 #' @param address A character specifying the serveraddress (local or online)
 #'
-#' @return
+#' @return a numeric or a list (depending on parameter instructions)
 #'
 #' @examples
 #' # osrmr::run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
-#' # osrmr:::viaroute_api_v4(47,9,48,10,F, osrmr:::server_address(T))
+#' # osrmr:::viaroute_api_v4(47,9,48,10, FALSE, osrmr:::server_address(TRUE))
 #' # [1] 10328
 #' # osrmr::quit_server()
 viaroute_api_v4 <- function(lat1, lng1, lat2, lng2, instructions, address) {
@@ -109,11 +109,11 @@ viaroute_api_v4 <- function(lat1, lng1, lat2, lng2, instructions, address) {
 #'  If TRUE, more details of the route are returned (as list).
 #' @param address A character specifying the serveraddress (local or online)
 #'
-#' @return
+#' @return a numeric or a list (depending on parameter instructions)
 #'
 #' @examples
 #' # osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
-#' # osrmr:::viaroute_api_v5(47,9,48,10,F, osrmr:::server_address(T))
+#' # osrmr:::viaroute_api_v5(47, 9, 48, 10 , FALSE, osrmr:::server_address(TRUE))
 #' # [1] 5485.4
 #' # osrmr::quit_server()
 viaroute_api_v5 <- function(lat1, lng1, lat2, lng2, instructions, address) {

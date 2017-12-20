@@ -32,12 +32,12 @@ The coordinate-standard is WGS84.
 Attention: The OSRM API-4 is only working locally, but not with the onlinehost.
 }
 \examples{
-"http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=true"
-osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 5, F)
+# "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=true"
+osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 5, FALSE)
 # osrmr::run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
-# osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 4, T)
+# osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 4, TRUE)
 # osrmr::quit_server()
 # osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
-# osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, F, 5, T)
+# osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 5, TRUE)
 # osrmr::quit_server()
 }

@@ -21,7 +21,7 @@ If TRUE, more details of the route are returned (as list).}
 \item{address}{A character specifying the serveraddress (local or online)}
 }
 \value{
-
+a numeric or a list (depending on parameter instructions)
 }
 \description{
 For a given start- and end-destination, viaroute() calculates route informations using OSRM API 5.
@@ -31,7 +31,7 @@ Attention: The OSRM API-4 is only working locally, but not with the onlinehost.
 }
 \examples{
 # osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
-# osrmr:::viaroute_api_v5(47,9,48,10,F, osrmr:::server_address(T))
+# osrmr:::viaroute_api_v5(47, 9, 48, 10 , FALSE, osrmr:::server_address(TRUE))
 # [1] 5485.4
 # osrmr::quit_server()
 }

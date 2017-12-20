@@ -17,8 +17,8 @@ server_address() returns an address depending on the choice of a localhost or on
 This address can be used as a part of a OSRM server-request.
 }
 \examples{
-osrmr:::server_address(T)
+osrmr:::server_address(TRUE)
 # "http://localhost:5000"
-osrmr:::server_address(F)
+osrmr:::server_address(FALSE)
 # "http://router.project-osrm.org"
 }

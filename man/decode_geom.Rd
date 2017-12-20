@@ -4,12 +4,12 @@
 \alias{decode_geom}
 \title{Transform encoded polylines to lat-lng data.frame.}
 \usage{
-decode_geom(encoded, api_version)
+decode_geom(encoded, precision = stop("a numeric, either 5 or 6"))
 }
 \arguments{
 \item{encoded}{A character containing encoded polylines}
 
-\item{api_version}{A numeric (either 4 or 5) to specify the OSRM API version}
+\item{precision}{A numeric (either 5 or 6) to specify the precision of [lat,lng] encoding.}
 }
 \value{
 data.frame with lat and lng
@@ -21,8 +21,8 @@ to-decode-encoded-polylines-from-osrm-and-plotting-route-geometry)
 \examples{
 encoded_string_api_4 <- osrmr::encoded_string_api_4
 encoded_string_api_5 <- osrmr::encoded_string_api_5
-decoded_api_4 <- decode_geom(encoded_string_api_4, api_version = 4)
-decoded_api_5 <- decode_geom(encoded_string_api_5, api_version = 5)
+decoded_api_4 <- decode_geom(encoded_string_api_4, precision = 5)
+decoded_api_5 <- decode_geom(encoded_string_api_5, precision = 6)
 decoded_api_4[1:3,]
 #        lat     lng
 # 1 47.10020 8.09970

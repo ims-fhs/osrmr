@@ -17,12 +17,12 @@ knitr::opts_chunk$set(message = FALSE)
 
 <!-- Code for adding footnotes: footnotes^[This is a footnote.] -->
 
-osrmr is a little R package designed to easily access and use the OSRM (open source routing machine - 
+'osrmr' is a little R package designed to easily access and use the OSRM (open source routing machine - 
 http://project-osrm.org/) directly from R.  
   
 Many problems with geocoding tasks can be solved in R. Yet, there is no direct routing engine 
 implemented. For such tasks, OSRM is a widely used tool to acces geospacial data and solve 
-routing problems. The osrmr package gives the possiblity to access a basic functionality of OSRM. 
+routing problems. The 'osrmr' package gives the possiblity to access a basic functionality of OSRM. 
 
 ```{r, echo = F, out.width = "690px"}
 knitr::include_graphics("idea_of_osrmr.jpg")
@@ -41,7 +41,7 @@ work with (i.e. `"switzerland-latest.osrm"`, `"germany-latest.osrm"`, `"great-br
 
  * Start your localhost by calling `run_server()`
  * `run_server()` returns the `error_code` of the starting-attempt (`0` means the start was successful)
- * You're now set up to use the functionalities of the osrmr package
+ * You're now set up to use the functionalities of the 'osrmr' package
  * After finishing all calculations you can stop your localhost with the function by calling `quit_server()`
 
 ```{r}
@@ -56,13 +56,13 @@ quit_server() # quit the running server
 
 ## use OSRM in R
 
-With the osrmr package you can use the following basic functionalities of OSRM: 
+With the 'osrmr' package you can use the following basic functionalities of OSRM: 
 
  * [nearest](#nearest)
  * [viaroute](#viaroute)
  * [decoder](#decoder)
 
-The coordinate-standard for all functionalities of osrmr is **WGS84**.  
+The coordinate-standard for all functionalities of 'osrmr' is **WGS84**.  
   
 Keep in mind that different API's and localhost/onlinehost may return different results. There 
 are pro's and con's for using one specific configuration. When choosing your configuration 

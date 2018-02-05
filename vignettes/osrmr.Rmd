@@ -83,6 +83,7 @@ using the function `nearest()`. You can specify the coordinates, the API version
 to use the localhost or not. 
 
 ```{r}
+library(osrmr)
 nearest(lat = 47, lng = 8, api_version = 5, localhost = FALSE)
 #        lat      lng
 # 1 47.00008 8.003016

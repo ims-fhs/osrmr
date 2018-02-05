@@ -95,7 +95,7 @@ viaroute_api_v4 <- function(lat1, lng1, lat2, lng2, instructions, address) {
 #' osrmr:::viaroute_api_v5(47,9,48,10,F, osrmr:::server_address(F))
 #' # [1] 8828.1
 viaroute_api_v5 <- function(lat1, lng1, lat2, lng2, instructions, address) {
-  R.utils::evalWithTimeout({
+  R.utils::withTimeout({
     repeat {
       res <- try(
         route <- rjson::fromJSON(

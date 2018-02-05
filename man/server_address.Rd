@@ -13,8 +13,8 @@ server_address(use_localhost)
 character, the address of an OSRM server
 }
 \description{
-server_address() returns an address depending on the choice of a localhost or onlinehost.
-This address can be used as a part of a OSRM server-request.
+server_address() returns an address depending on the choice of a localhost or webserver.
+This address is used as a part of a OSRM server-request.
 }
 \examples{
 osrmr:::server_address(TRUE)

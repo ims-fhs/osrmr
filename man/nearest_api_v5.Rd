@@ -2,7 +2,7 @@
 % Please edit documentation in R/nearest.R
 \name{nearest_api_v5}
 \alias{nearest_api_v5}
-\title{nearest accessible position for OSRM API 5}
+\title{nearest accessible position for OSRM API v5}
 \usage{
 nearest_api_v5(lat, lng, address)
 }
@@ -18,7 +18,7 @@ A data.frame with lat and lng
 }
 \description{
 nearest_api_v5() calculates the nearest position to the given coordinates which can be accessed
-by car with the OSRM API 5. The coordinate-standard is WGS84.
+by car with the OSRM API v5. The coordinate-standard is WGS84.
 }
 \examples{
 # osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")

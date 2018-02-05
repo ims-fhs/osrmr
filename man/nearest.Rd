@@ -20,8 +20,8 @@ A data.frame with lat and lng
 }
 \description{
 nearest() calculates the nearest position to the given coordinates which can be accessed by car.
-The coordinate-standard is WGS84. Attention: The OSRM API-4 is only working locally, but
-not with the onlinehost.
+The coordinate-standard is WGS84. Attention: The OSRM API v4 is only working locally, but
+not with the 'OSRM' webserver.
 }
 \examples{
 # osrmr::nearest(47,9, 5, F)

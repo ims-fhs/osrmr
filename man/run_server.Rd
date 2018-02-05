@@ -16,7 +16,7 @@ error_code A character
 }
 \description{
 run_server() starts your local OSRM server by using a shell command (depending on
-your OS). A local (pre-biult) version of the OSRM-engine must be on your device.
+your OS). A local (pre-built) version of the OSRM-engine must be on your device.
 (https://github.com/Project-OSRM/osrm-backend/wiki/Building-OSRM).
 }
 \examples{

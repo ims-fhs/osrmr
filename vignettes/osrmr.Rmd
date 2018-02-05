@@ -44,7 +44,7 @@ work with (i.e. `"switzerland-latest.osrm"`, `"germany-latest.osrm"`, `"great-br
  * You're now set up to use the functionalities of the 'osrmr' package
  * After finishing all calculations you can stop your localhost with the function by calling `quit_server()`
 
-```{r}
+```{r, eval=FALSE}
 library(osrmr)
 # run_server("path_to_your_local_build", "name_of_your_map.osrm")
 run_server("C:/OSRM_API5/", "switzerland-latest.osrm") # start localhost of OSRM API 5

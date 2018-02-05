@@ -7,7 +7,7 @@
 server_address(use_localhost)
 }
 \arguments{
-\item{use_localhost}{A logical, indicating wheter to use the localhost or not.}
+\item{use_localhost}{A logical, indicating whether to use the localhost or not.}
 }
 \value{
 character, the address of an OSRM server

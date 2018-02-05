@@ -53,7 +53,7 @@ quit_server <- function() {
 #' server_address() returns an address depending on the choice of a localhost or onlinehost.
 #' This address can be used as a part of a OSRM server-request.
 #'
-#' @param use_localhost A logical, indicating wheter to use the localhost or not.
+#' @param use_localhost A logical, indicating whether to use the localhost or not.
 #'
 #' @return character, the address of an OSRM server
 #'

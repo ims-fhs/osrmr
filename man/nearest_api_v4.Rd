@@ -17,7 +17,7 @@ nearest_api_v4(lat, lng, address)
 A data.frame with lat and lng
 }
 \description{
-nearest_api_v4() cacluates the nearest position to the given coordinates which can be accessed
+nearest_api_v4() calculates the nearest position to the given coordinates which can be accessed
 by car with the OSRM API 4. The coordinate-standard is WGS84. Attention: The OSRM API-4
 is only working locally, but not with the onlinehost.
 }

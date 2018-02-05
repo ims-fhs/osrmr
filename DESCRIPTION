@@ -1,7 +1,7 @@
 Package: osrmr
 Type: Package
 Title: osrmr - wraps the OSRM API
-Version: 0.1.21
+Version: 0.1.22
 Date: 2018-02-05
 Author: Adrian Staempfli, Christoph Strauss
 Maintainer: <adrian.staempfli@fhsg.ch>

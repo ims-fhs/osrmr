@@ -3,7 +3,7 @@
 \docType{data}
 \title{encoded test-dataset API 4}
 \description{
-  This is a test-dataset generatet with OSRM in order to test decode_geom(). The
+  This is a test-dataset generated with OSRM in order to test decode_geom(). The
   data contains the encoded polyline from (lat1 = 47.1 / lng1 = 8.1) to (lat2 = 46.9 /
   lng2 = 8.3) as character. The accuracy of this data is 1e-5
 }

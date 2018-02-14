@@ -23,7 +23,7 @@ If TRUE, more details of the route are returned (as list).}
 \item{localhost}{A logical (TRUE = localhost is used, FALSE = onlinehost is used)}
 }
 \value{
-a numeric or a list (depending on parameter instructions)
+a numeric or a list (depending on instructions)
 }
 \description{
 For a given start- and end-destination, viaroute() calculates route informations using OSRM.
@@ -32,12 +32,24 @@ The coordinate-standard is WGS84.
 Attention: The OSRM API-4 is only working locally, but not with the onlinehost.
 }
 \examples{
-# "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=true"
+# direct examples of the online API
+link <- "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=false"
+a <- rjson::fromJSON(file = link)
+
+# example with onlinehost API5
 osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 5, FALSE)
-# osrmr::run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
-# osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 4, TRUE)
-# osrmr::quit_server()
-# osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
-# osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 5, TRUE)
-# osrmr::quit_server()
+
+# examples with localhost API4/API5
+\dontrun{
+base::Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
+osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
+osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 4, TRUE)
+osrmr::quit_server()
+base::Sys.unsetenv("OSRM_PATH_API_4")
+
+base::Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
+osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
+osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 5, TRUE)
+osrmr::quit_server()
+base::Sys.unsetenv("OSRM_PATH_API_5")}
 }

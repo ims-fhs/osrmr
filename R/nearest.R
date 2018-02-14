@@ -13,21 +13,20 @@
 #' @export
 #'
 #' @examples
-#' # osrmr::nearest(47,9, 5, F)
-#' #        lat      lng
-#' # 1 47.02872 9.006633
+#' \dontrun{
+#' osrmr::nearest(47,9, 5, FALSE)
 #'
-#' # osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
-#' # osrmr:::nearest(47,9, 5, T)
-#' #        lat      lng
-#' # 1 47.02872 9.006633
-#' # osrmr::quit_server()
+#' base::Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
+#' osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
+#' osrmr:::nearest(47,9, 5, TRUE)
+#' osrmr::quit_server()
+#' base::Sys.unsetenv("OSRM_PATH_API_5")
 #'
-#' # osrmr::run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
-#' # osrmr:::nearest(47,9, 4, T)
-#' #        lat      lng
-#' # 1 47.02891 9.006577
-#' # osrmr::quit_server()
+#' base::Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
+#' osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
+#' osrmr:::nearest(47,9, 4, TRUE)
+#' osrmr::quit_server()
+#' base::Sys.unsetenv("OSRM_PATH_API_4")}
 nearest <- function(lat, lng, api_version = 5, localhost = F) {
   assertthat::assert_that(api_version %in% c(4,5))
 
@@ -55,11 +54,12 @@ nearest <- function(lat, lng, api_version = 5, localhost = F) {
 #' @return A data.frame with lat and lng
 #'
 #' @examples
-#' # osrmr::run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
-#' # osrmr:::nearest_api_v4(47,9, osrmr:::server_address(T))
-#' #        lat      lng
-#' # 1 47.02891 9.006577
-#' # osrmr::quit_server()
+#' \dontrun{
+#' base::Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
+#' osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
+#' osrmr:::nearest_api_v4(47,9, osrmr:::server_address(TRUE))
+#' osrmr::quit_server()
+#' base::Sys.unsetenv("OSRM_PATH_API_4")}
 nearest_api_v4 <- function(lat, lng, address) {
   nearest <- rjson::fromJSON(file = paste(address, "/nearest?loc=",
                                         lat, ",", lng, sep = "", NULL))$mapped_coordinate
@@ -82,14 +82,13 @@ nearest_api_v4 <- function(lat, lng, address) {
 #' @return A data.frame with lat and lng
 
 #' @examples
-#' # osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
-#' # osrmr:::nearest_api_v5(47,9, osrmr:::server_address(T))
-#' #        lat      lng
-#' # 1 47.02872 9.006633
-#' # osrmr:::nearest_api_v5(47,9, osrmr:::server_address(F))
-#' # lat      lng
-#' # 1 47.02872 9.006633
-#' # osrmr::quit_server()
+#' osrmr:::nearest_api_v5(47,9, osrmr:::server_address(FALSE))
+#' \dontrun{
+#' base::Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
+#' osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
+#' osrmr:::nearest_api_v5(47,9, osrmr:::server_address(TRUE))
+#' osrmr::quit_server()
+#' base::Sys.unsetenv("OSRM_PATH_API_5")}
 nearest_api_v5 <- function(lat, lng, address) {
   nearest <- rjson::fromJSON(file = paste(address, "/nearest/v1/driving/",
                                           lng, ",", lat, "?number=1", sep = "", NULL))$waypoints[[1]]$location

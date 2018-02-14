@@ -10,11 +10,13 @@
 #' @return error_code A character
 #' @export
 #' @examples
-#' # osrmr::run_server("C:/path/to/local/osrm_engine/", "switzerland-latest.osrm")
-#' # osrmr::run_server("/Users/adrianschmid/Documents/OSRM/osrm-backend/build/",
-#' # "switzerland-latest.osrm")
-#' # osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
-#' # osrmr::run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
+#' \dontrun{
+#' base::Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
+#' osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
+#' base::Sys.unsetenv("OSRM_PATH_API_5")
+#' base::Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
+#' osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
+#' base::Sys.unsetenv("OSRM_PATH_API_4")}
 run_server <- function(osrm_path, map_name){
   wd <- getwd()
   setwd(osrm_path)
@@ -59,9 +61,7 @@ quit_server <- function() {
 #'
 #' @examples
 #' osrmr:::server_address(TRUE)
-#' # "http://localhost:5000"
 #' osrmr:::server_address(FALSE)
-#' # "http://router.project-osrm.org"
 server_address <- function(use_localhost) {
   if (use_localhost == T) {
     address <- "http://localhost:5000"

@@ -24,19 +24,18 @@ The coordinate-standard is WGS84. Attention: The OSRM API-4 is only working loca
 not with the onlinehost.
 }
 \examples{
-# osrmr::nearest(47,9, 5, F)
-#        lat      lng
-# 1 47.02872 9.006633
+\dontrun{
+osrmr::nearest(47,9, 5, FALSE)
 
-# osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
-# osrmr:::nearest(47,9, 5, T)
-#        lat      lng
-# 1 47.02872 9.006633
-# osrmr::quit_server()
+base::Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
+osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
+osrmr:::nearest(47,9, 5, TRUE)
+osrmr::quit_server()
+base::Sys.unsetenv("OSRM_PATH_API_5")
 
-# osrmr::run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
-# osrmr:::nearest(47,9, 4, T)
-#        lat      lng
-# 1 47.02891 9.006577
-# osrmr::quit_server()
+base::Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
+osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
+osrmr:::nearest(47,9, 4, TRUE)
+osrmr::quit_server()
+base::Sys.unsetenv("OSRM_PATH_API_4")}
 }

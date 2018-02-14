@@ -14,18 +14,30 @@
 #' @param api_version A numeric (either 4 or 5)
 #' @param localhost A logical (TRUE = localhost is used, FALSE = onlinehost is used)
 #'
-#' @return a numeric or a list (depending on parameter instructions)
+#' @return a numeric or a list (depending on instructions)
 #' @export
 #'
 #' @examples
-#' # "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=true"
+#' # direct examples of the online API
+#' link <- "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=false"
+#' a <- rjson::fromJSON(file = link)
+#'
+#' # example with onlinehost API5
 #' osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 5, FALSE)
-#' # osrmr::run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
-#' # osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 4, TRUE)
-#' # osrmr::quit_server()
-#' # osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
-#' # osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 5, TRUE)
-#' # osrmr::quit_server()
+#'
+#' # examples with localhost API4/API5
+#' \dontrun{
+#' base::Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
+#' osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
+#' osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 4, TRUE)
+#' osrmr::quit_server()
+#' base::Sys.unsetenv("OSRM_PATH_API_4")
+#'
+#' base::Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
+#' osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
+#' osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 5, TRUE)
+#' osrmr::quit_server()
+#' base::Sys.unsetenv("OSRM_PATH_API_5")}
 viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhost) {
   assertthat::assert_that(api_version %in% c(4,5))
   address <- server_address(localhost)
@@ -56,10 +68,12 @@ viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhos
 #' @return a numeric or a list (depending on parameter instructions)
 #'
 #' @examples
-#' # osrmr::run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
-#' # osrmr:::viaroute_api_v4(47,9,48,10, FALSE, osrmr:::server_address(TRUE))
-#' # [1] 10328
-#' # osrmr::quit_server()
+#' \dontrun{
+#' base::Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
+#' osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
+#' osrmr:::viaroute_api_v4(47,9,48,10, FALSE, osrmr:::server_address(TRUE))
+#' osrmr::quit_server()
+#' base::Sys.unsetenv("OSRM_PATH_API_4")}
 viaroute_api_v4 <- function(lat1, lng1, lat2, lng2, instructions, address) {
   R.utils::withTimeout({
     repeat{
@@ -112,10 +126,16 @@ viaroute_api_v4 <- function(lat1, lng1, lat2, lng2, instructions, address) {
 #' @return a numeric or a list (depending on parameter instructions)
 #'
 #' @examples
-#' # osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
-#' # osrmr:::viaroute_api_v5(47, 9, 48, 10 , FALSE, osrmr:::server_address(TRUE))
-#' # [1] 5485.4
-#' # osrmr::quit_server()
+#' # example with onlinehost
+#' osrmr:::viaroute_api_v5(47, 9, 48, 10 , FALSE, osrmr:::server_address(FALSE))
+#'
+#' # example with localhost
+#' \dontrun{
+#' base::Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
+#' osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
+#' osrmr:::viaroute_api_v5(47, 9, 48, 10 , FALSE, osrmr:::server_address(TRUE))
+#' osrmr::quit_server()
+#' base::Sys.unsetenv("OSRM_PATH_API_5")}
 viaroute_api_v5 <- function(lat1, lng1, lat2, lng2, instructions, address) {
   R.utils::withTimeout({
     repeat {

@@ -20,9 +20,11 @@ your OS). A local (pre-biult) version of the OSRM-engine must be on your device.
 (https://github.com/Project-OSRM/osrm-backend/wiki/Building-OSRM).
 }
 \examples{
-# osrmr::run_server("C:/path/to/local/osrm_engine/", "switzerland-latest.osrm")
-# osrmr::run_server("/Users/adrianschmid/Documents/OSRM/osrm-backend/build/",
-# "switzerland-latest.osrm")
-# osrmr::run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
-# osrmr::run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
+\dontrun{
+base::Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
+osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
+base::Sys.unsetenv("OSRM_PATH_API_5")
+base::Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
+osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
+base::Sys.unsetenv("OSRM_PATH_API_4")}
 }

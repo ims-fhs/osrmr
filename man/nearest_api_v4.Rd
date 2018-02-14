@@ -22,9 +22,10 @@ by car with the OSRM API 4. The coordinate-standard is WGS84. Attention: The OSR
 is only working locally, but not with the onlinehost.
 }
 \examples{
-# osrmr::run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
-# osrmr:::nearest_api_v4(47,9, osrmr:::server_address(T))
-#        lat      lng
-# 1 47.02891 9.006577
-# osrmr::quit_server()
+\dontrun{
+base::Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
+osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
+osrmr:::nearest_api_v4(47,9, osrmr:::server_address(TRUE))
+osrmr::quit_server()
+base::Sys.unsetenv("OSRM_PATH_API_4")}
 }

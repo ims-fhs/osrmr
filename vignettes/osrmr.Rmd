@@ -43,13 +43,22 @@ work with (i.e. `"switzerland-latest.osrm"`, `"germany-latest.osrm"`, `"great-br
  * `run_server()` returns the `error_code` of the starting-attempt (`0` means the start was successful)
  * You're now set up to use the functionalities of the 'osrmr' package
  * After finishing all calculations you can stop your localhost with the function by calling `quit_server()`
+ * It's recommended to use an Environment Variable for the path of your local build (see examples).
 
 ```{r, eval=FALSE}
 library(osrmr)
 # run_server("path_to_your_local_build", "name_of_your_map.osrm")
-run_server("C:/OSRM_API5/", "switzerland-latest.osrm") # start localhost of OSRM API 5
+
+# Set the path of your localhost as environment variable
+base::Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
+base::Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
+
+# start localhost of OSRM API 5
+run_server(base::Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
 quit_server() # quit the running server
-run_server("C:/OSRM_API4/", "switzerland-latest.osrm") # start localhost of OSRM API 4
+
+# start localhost of OSRM API 4
+run_server(base::Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
 quit_server() # quit the running server
 ```
 
@@ -85,21 +94,22 @@ to use the localhost or not.
 ```{r}
 library(osrmr)
 nearest(lat = 47, lng = 8, api_version = 5, localhost = FALSE)
+```
+
+```{r, eval = FALSE}
+run_server(base::Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
+nearest(lat = 47, lng = 8, api_version = 5, localhost = TRUE)
+quit_server()
 #        lat      lng
 # 1 47.00008 8.003016
 
-# run_server("C:/OSRM_API5/", "switzerland-latest.osrm")
-# nearest(lat = 47, lng = 8, api_version = 5, localhost = TRUE)
-# quit_server()
-#        lat      lng
-# 1 47.00008 8.003016
-
-# run_server("C:/OSRM_API4/", "switzerland-latest.osrm")
-# nearest(lat = 47, lng = 8, api_version = 4, localhost = TRUE)
-# quit_server()
+run_server(base::Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
+nearest(lat = 47, lng = 8, api_version = 4, localhost = TRUE)
+quit_server()
 #       lat      lng
 # 1 47.0001 8.003018
 ```
+
 
 As you see above the results may differ depending on the api version and the build of 
 the localhost (or onlinehost). 
@@ -151,4 +161,8 @@ The differences of precisions 5 and 6 are smaller than a tolerance of `1e-6`.
 assertthat::assert_that(all.equal(decoded_5, decoded_6, tolerance = 1e-6))
 ```
 
+```{r}
+base::Sys.unsetenv("OSRM_PATH_API_4")
+base::Sys.unsetenv("OSRM_PATH_API_5")
+```
 

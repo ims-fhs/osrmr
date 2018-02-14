@@ -33,7 +33,7 @@ nearest(lat = 47, lng = 8, api_version = 5, localhost = FALSE)
 #> 1 47.00008 8.003016
 viaroute(lat1 = 47.1, lng1 = 8.1, lat2 = 46.9, lng2 = 8.3, instructions = FALSE,
          api_version = 5, localhost = FALSE)
-#> [1] 2645.7
+#> [1] 2637.1
 
 encoded_polyline_precision_5 <- rjson::fromJSON(file = "http://router.project-osrm.org/route/v1/driving/8.0997,47.1002;8.101110,47.10430?steps=false&geometries=polyline")$routes[[1]]$geometry
 decode_geom(encoded_polyline_precision_5, precision = 5)
@@ -48,5 +48,10 @@ decode_geom(encoded_polyline_precision_5, precision = 5)
 #> 8 47.10322 8.10125
 #> 9 47.10430 8.10110
 ```
+
+### Note
+
+1.  In order to use the localhost of OSRM you need a local build on your device. For more Information on the localhost see <https://github.com/Project-OSRM/osrm-backend/wiki/Building-OSRM>.
+2.  When using the localhost it's recommended to set the path of your local build as environment variable.
 
 For more detailed Information about the components of the 'osrmr' package, check out the vignette.

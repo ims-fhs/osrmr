@@ -51,5 +51,12 @@ decode_geom(encoded_polyline_precision_5, precision = 5)
 
 ```
 
+### Note
+
+ 1. In order to use the localhost of OSRM you need a local build on your device. For more Information 
+ on the localhost see <https://github.com/Project-OSRM/osrm-backend/wiki/Building-OSRM>. 
+ 2. When using the localhost it's recommended to set the path of your local build as environment variable.
+
+
 For more detailed Information about the components of the 'osrmr' package, check out the vignette. 
 

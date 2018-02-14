@@ -1,8 +1,8 @@
 #' nearest accessible position
 #'
 #' nearest() calculates the nearest position to the given coordinates which can be accessed by car.
-#' The coordinate-standard is WGS84. Attention: The OSRM API-4 is only working locally, but
-#' not with the onlinehost.
+#' The coordinate-standard is WGS84. Attention: The OSRM API v4 is only working locally, but
+#' not with the 'OSRM' webserver.
 #'
 #' @param lat, A numeric (-90 < lat < 90)
 #' @param lng, A numeric (-180 < lng < 180)
@@ -41,11 +41,11 @@ nearest <- function(lat, lng, api_version = 5, localhost = F) {
 }
 
 
-#' nearest accessible position for OSRM API 4
+#' nearest accessible position for OSRM API v4
 #'
 #' nearest_api_v4() calculates the nearest position to the given coordinates which can be accessed
-#' by car with the OSRM API 4. The coordinate-standard is WGS84. Attention: The OSRM API-4
-#' is only working locally, but not with the onlinehost.
+#' by car with the OSRM API 4. The coordinate-standard is WGS84. Attention: The OSRM API v4
+#' is only working locally, but not with the 'OSRM' webserver.
 #'
 #' @param lat, A numeric (-90 < lat < 90)
 #' @param lng, A numeric (-180 < lng < 180)
@@ -70,10 +70,10 @@ nearest_api_v4 <- function(lat, lng, address) {
   return(nearest)
 }
 
-#' nearest accessible position for OSRM API 5
+#' nearest accessible position for OSRM API v5
 #'
 #' nearest_api_v5() calculates the nearest position to the given coordinates which can be accessed
-#' by car with the OSRM API 5. The coordinate-standard is WGS84.
+#' by car with the OSRM API v5. The coordinate-standard is WGS84.
 #'
 #' @param lat, A numeric (-90 < lat < 90)
 #' @param lng, A numeric (-180 < lng < 180)

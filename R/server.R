@@ -1,7 +1,7 @@
 #' Start local OSRM server
 #'
 #' run_server() starts your local OSRM server by using a shell command (depending on
-#' your OS). A local (pre-biult) version of the OSRM-engine must be on your device.
+#' your OS). A local (pre-built) version of the OSRM-engine must be on your device.
 #' (https://github.com/Project-OSRM/osrm-backend/wiki/Building-OSRM).
 #'
 #' @param osrm_path A character containing the directory of the local OSRM-engine
@@ -52,8 +52,8 @@ quit_server <- function() {
 
 #' Set server address
 #'
-#' server_address() returns an address depending on the choice of a localhost or onlinehost.
-#' This address can be used as a part of a OSRM server-request.
+#' server_address() returns an address depending on the choice of a localhost or webserver.
+#' This address is used as a part of a OSRM server-request.
 #'
 #' @param use_localhost A logical, indicating whether to use the localhost or not.
 #'

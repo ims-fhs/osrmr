@@ -47,7 +47,6 @@ work with (i.e. `"switzerland-latest.osrm"`, `"germany-latest.osrm"`, `"great-br
 
 ```{r, eval=FALSE}
 library(osrmr)
-# run_server("path_to_your_local_build", "name_of_your_map.osrm")
 
 # Set the path of your localhost as environment variable
 Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
@@ -87,13 +86,13 @@ For given coordinates, you can calculate the nearest position which can be acces
 using the function `nearest()`. You can specify the coordinates, the API version and whether
 to use the localhost or not. 
 
-```{r}
+```{r, eval = FALSE}
 library(osrmr)
 nearest(lat = 47, lng = 8, api_version = 5, localhost = FALSE)
 ```
 
 ```{r, eval = FALSE}
-run_server(switzerland-latest.osrm")
+run_server("switzerland-latest.osrm")
 nearest(lat = 47, lng = 8, api_version = 5, localhost = TRUE)
 quit_server()
 #        lat      lng
@@ -112,7 +111,7 @@ OSRM chooses the nearest point which can be accessed by car for the start- and e
 You can choose whether to return only the traveltime (in seconds, as numeric) or 
 more details of the route (as list), by setting the parameter `instructions`. 
 
-```{r}
+```{r, eval = FALSE}
 viaroute(lat1 = 47.1, lng1 = 8.1, lat2 = 46.9, lng2 = 8.3, instructions = FALSE,
          api_version = 5, localhost = FALSE)
 
@@ -131,7 +130,7 @@ below). Depending on the OSRM API version, the precision for [lat, lng] encoding
 
 To decode a polyline the right way you need to know the precision of the polyline. The parameter
 `precision` of `decode_geom()` accepts the values 5 (`1e-5`) or 6 (`1e-6`) to decode a polyline. 
-```{r}
+```{r, eval = FALSE}
 polyline_5 <- rjson::fromJSON(file = "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=false&geometries=polyline")$routes[[1]]$geometry
 polyline_6 <- rjson::fromJSON(file = "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=false&geometries=polyline6")$routes[[1]]$geometry
 
@@ -147,7 +146,7 @@ nrow(decoded_6)
 ```
 
 The differences of precisions 5 and 6 are smaller than a tolerance of `1e-6`.
-```{r}
+```{r, eval = FALSE}
 assertthat::assert_that(all.equal(decoded_5, decoded_6, tolerance = 1e-6))
 ```
 

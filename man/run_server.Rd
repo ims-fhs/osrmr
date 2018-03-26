@@ -4,12 +4,12 @@
 \alias{run_server}
 \title{Start local OSRM server}
 \usage{
-run_server(osrm_path, map_name)
+run_server(map_name, osrm_path = Sys.getenv("OSRM_PATH"))
 }
 \arguments{
-\item{osrm_path}{A character containing the directory of the local OSRM-engine}
-
 \item{map_name}{A character (name of your pre-built map - e.g. "switzerland-latest.osrm")}
+
+\item{osrm_path}{A string pointing to your local OSRM installation. Default is the environment variable "OSRM_PATH".}
 }
 \value{
 error_code A character
@@ -21,10 +21,7 @@ your OS). A local (pre-built) version of the OSRM-engine must be on your device.
 }
 \examples{
 \dontrun{
-base::Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
-osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
-base::Sys.unsetenv("OSRM_PATH_API_5")
-base::Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
-osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
-base::Sys.unsetenv("OSRM_PATH_API_4")}
+Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
+osrmr::run_server("switzerland-latest.osrm")
+Sys.unsetenv("OSRM_PATH")}
 }

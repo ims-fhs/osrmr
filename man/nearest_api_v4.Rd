@@ -23,9 +23,9 @@ is only working locally, but not with the 'OSRM' webserver.
 }
 \examples{
 \dontrun{
-base::Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
-osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
+Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
+osrmr::run_server(Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
 osrmr:::nearest_api_v4(47,9, osrmr:::server_address(TRUE))
 osrmr::quit_server()
-base::Sys.unsetenv("OSRM_PATH_API_4")}
+Sys.unsetenv("OSRM_PATH_API_4")}
 }

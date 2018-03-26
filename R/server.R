@@ -4,20 +4,17 @@
 #' your OS). A local (pre-built) version of the OSRM-engine must be on your device.
 #' (https://github.com/Project-OSRM/osrm-backend/wiki/Building-OSRM).
 #'
-#' @param osrm_path A character containing the directory of the local OSRM-engine
 #' @param map_name A character (name of your pre-built map - e.g. "switzerland-latest.osrm")
+#' @param osrm_path A string pointing to your local OSRM installation. Default is the environment variable "OSRM_PATH".
 #'
 #' @return error_code A character
 #' @export
 #' @examples
 #' \dontrun{
-#' Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
-#' osrmr::run_server(Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
-#' Sys.unsetenv("OSRM_PATH_API_5")
-#' Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
-#' osrmr::run_server(Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
-#' Sys.unsetenv("OSRM_PATH_API_4")}
-run_server <- function(osrm_path, map_name){
+#' Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
+#' osrmr::run_server("switzerland-latest.osrm")
+#' Sys.unsetenv("OSRM_PATH")}
+run_server <- function(map_name, osrm_path = Sys.getenv("OSRM_PATH")){
   wd <- getwd()
   setwd(osrm_path)
 

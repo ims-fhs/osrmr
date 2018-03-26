@@ -23,9 +23,9 @@ by car with the OSRM API v5. The coordinate-standard is WGS84.
 \examples{
 osrmr:::nearest_api_v5(47,9, osrmr:::server_address(FALSE))
 \dontrun{
-base::Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
-osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
+Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
+osrmr::run_server(Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
 osrmr:::nearest_api_v5(47,9, osrmr:::server_address(TRUE))
 osrmr::quit_server()
-base::Sys.unsetenv("OSRM_PATH_API_5")}
+Sys.unsetenv("OSRM_PATH_API_5")}
 }

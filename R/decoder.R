@@ -11,10 +11,8 @@
 #' @export
 #'
 #' @examples
-#' encoded_string_api_4 <- osrmr::encoded_string_api_4
-#' encoded_string_api_5 <- osrmr::encoded_string_api_5
-#' decoded_api_4 <- decode_geom(encoded_string_api_4, precision = 5)
-#' decoded_api_5 <- decode_geom(encoded_string_api_5, precision = 6)
+#' decoded_api_4 <- decode_geom(osrmr::encoded_string_api_4, precision = 5)
+#' decoded_api_5 <- decode_geom(osrmr::encoded_string_api_5, precision = 6)
 #' decoded_api_4[1:3,]
 #' #        lat     lng
 #' # 1 47.10020 8.09970

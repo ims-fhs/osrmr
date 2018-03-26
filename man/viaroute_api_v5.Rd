@@ -35,9 +35,9 @@ osrmr:::viaroute_api_v5(47, 9, 48, 10 , FALSE, osrmr:::server_address(FALSE))
 
 # example with localhost
 \dontrun{
-base::Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
-osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
+Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
+osrmr::run_server("switzerland-latest.osrm")
 osrmr:::viaroute_api_v5(47, 9, 48, 10 , FALSE, osrmr:::server_address(TRUE))
 osrmr::quit_server()
-base::Sys.unsetenv("OSRM_PATH_API_5")}
+Sys.unsetenv("OSRM_PATH")}
 }

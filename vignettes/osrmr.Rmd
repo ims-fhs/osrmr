@@ -50,16 +50,12 @@ library(osrmr)
 # run_server("path_to_your_local_build", "name_of_your_map.osrm")
 
 # Set the path of your localhost as environment variable
-base::Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
-base::Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
+Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
 
-# start localhost of OSRM API 5
-run_server(base::Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
+# start localhost of OSRM
+run_server("switzerland-latest.osrm")
 quit_server() # quit the running server
 
-# start localhost of OSRM API 4
-run_server(base::Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
-quit_server() # quit the running server
 ```
 
 
@@ -97,22 +93,16 @@ nearest(lat = 47, lng = 8, api_version = 5, localhost = FALSE)
 ```
 
 ```{r, eval = FALSE}
-run_server(base::Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
+run_server(switzerland-latest.osrm")
 nearest(lat = 47, lng = 8, api_version = 5, localhost = TRUE)
 quit_server()
 #        lat      lng
 # 1 47.00008 8.003016
 
-run_server(base::Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
-nearest(lat = 47, lng = 8, api_version = 4, localhost = TRUE)
-quit_server()
-#       lat      lng
-# 1 47.0001 8.003018
 ```
 
 
-As you see above the results may differ depending on the api version and the build of 
-the localhost (or onlinehost). 
+Results may differ depending on the api version and the build of the localhost (or onlinehost). 
 
 
 ### viaroute {#viaroute}
@@ -162,7 +152,6 @@ assertthat::assert_that(all.equal(decoded_5, decoded_6, tolerance = 1e-6))
 ```
 
 ```{r}
-base::Sys.unsetenv("OSRM_PATH_API_4")
-base::Sys.unsetenv("OSRM_PATH_API_5")
+Sys.unsetenv("OSRM_PATH")
 ```
 

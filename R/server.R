@@ -11,12 +11,12 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' base::Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
-#' osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
-#' base::Sys.unsetenv("OSRM_PATH_API_5")
-#' base::Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
-#' osrmr::run_server(base::Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
-#' base::Sys.unsetenv("OSRM_PATH_API_4")}
+#' Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
+#' osrmr::run_server(Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
+#' Sys.unsetenv("OSRM_PATH_API_5")
+#' Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
+#' osrmr::run_server(Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
+#' Sys.unsetenv("OSRM_PATH_API_4")}
 run_server <- function(osrm_path, map_name){
   wd <- getwd()
   setwd(osrm_path)

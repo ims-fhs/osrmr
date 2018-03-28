@@ -10,3 +10,8 @@ quit_server()
 quit_server() quits your local OSRM server by using a taskkill shell command (depending on
 your OS).
 }
+\examples{
+\dontrun{
+osrmr::quit_server()
+# NULL}
+}

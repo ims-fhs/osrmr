@@ -29,13 +29,13 @@ osrmr::nearest(47,9, 5, FALSE)
 
 Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
 osrmr::run_server(Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
-osrmr:::nearest(47,9, 5, TRUE)
+osrmr::nearest(47,9, 5, TRUE)
 osrmr::quit_server()
 Sys.unsetenv("OSRM_PATH_API_5")
 
 Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
 osrmr::run_server(Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
-osrmr:::nearest(47,9, 4, TRUE)
+osrmr::nearest(47,9, 4, TRUE)
 osrmr::quit_server()
 Sys.unsetenv("OSRM_PATH_API_4")}
 }

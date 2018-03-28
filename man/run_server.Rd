@@ -21,7 +21,11 @@ your OS). A local (pre-built) version of the OSRM-engine must be on your device.
 }
 \examples{
 \dontrun{
+Sys.setenv("OSRM_PATH"="C:/OSRM_API4")
+osrmr::run_server("switzerland-latest.osrm")
+# 0
 Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
 osrmr::run_server("switzerland-latest.osrm")
+# 0
 Sys.unsetenv("OSRM_PATH")}
 }

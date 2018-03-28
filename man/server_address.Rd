@@ -2,7 +2,9 @@
 % Please edit documentation in R/server.R
 \name{server_address}
 \alias{server_address}
-\title{Set server address}
+\title{server_address() returns the URL address of the OSRM localhost or OSRM webserver,
+depending on the value of the variable 'use_localhost'.
+This is an internal function. The address is used as a part of a OSRM server-request.}
 \usage{
 server_address(use_localhost)
 }
@@ -13,10 +15,13 @@ server_address(use_localhost)
 character, the address of an OSRM server
 }
 \description{
-server_address() returns an address depending on the choice of a localhost or webserver.
-This address is used as a part of a OSRM server-request.
+server_address() returns the URL address of the OSRM localhost or OSRM webserver,
+depending on the value of the variable 'use_localhost'.
+This is an internal function. The address is used as a part of a OSRM server-request.
 }
 \examples{
 osrmr:::server_address(TRUE)
+# [1] "http://localhost:5000"
 osrmr:::server_address(FALSE)
+# [1] "http://router.project-osrm.org"
 }

@@ -11,8 +11,12 @@
 #' @export
 #' @examples
 #' \dontrun{
+#' Sys.setenv("OSRM_PATH"="C:/OSRM_API4")
+#' osrmr::run_server("switzerland-latest.osrm")
+#' # 0
 #' Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
 #' osrmr::run_server("switzerland-latest.osrm")
+#' # 0
 #' Sys.unsetenv("OSRM_PATH")}
 run_server <- function(map_name, osrm_path = Sys.getenv("OSRM_PATH")){
   wd <- getwd()
@@ -37,6 +41,10 @@ run_server <- function(map_name, osrm_path = Sys.getenv("OSRM_PATH")){
 #'
 #' @return NULL
 #' @export
+#' @examples
+#' \dontrun{
+#' osrmr::quit_server()
+#' # NULL}
 quit_server <- function() {
   if (.Platform$OS.type == "windows") {
     shell("TaskKill /F /IM osrm-routed.exe >nul 2>nul")
@@ -47,10 +55,9 @@ quit_server <- function() {
 }
 
 
-#' Set server address
-#'
-#' server_address() returns an address depending on the choice of a localhost or webserver.
-#' This address is used as a part of a OSRM server-request.
+#' server_address() returns the URL address of the OSRM localhost or OSRM webserver,
+#' depending on the value of the variable 'use_localhost'.
+#' This is an internal function. The address is used as a part of a OSRM server-request.
 #'
 #' @param use_localhost A logical, indicating whether to use the localhost or not.
 #'
@@ -58,7 +65,9 @@ quit_server <- function() {
 #'
 #' @examples
 #' osrmr:::server_address(TRUE)
+#' # [1] "http://localhost:5000"
 #' osrmr:::server_address(FALSE)
+#' # [1] "http://router.project-osrm.org"
 server_address <- function(use_localhost) {
   if (use_localhost == T) {
     address <- "http://localhost:5000"

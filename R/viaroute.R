@@ -137,13 +137,20 @@ viaroute_api_v4 <- function(lat1, lng1, lat2, lng2, instructions, address) {
 #' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH")}
 viaroute_api_v5 <- function(lat1, lng1, lat2, lng2, instructions, address) {
+  if (!instructions) {
+    request <- paste(address, "/route/v1/driving/",
+                     lng1, ",", lat1, ";", lng2, ",", lat2,
+                     "?overview=false", sep = "", NULL)
+  } else {
+    request <- paste(address, "/route/v1/driving/",
+                     lng1, ",", lat1, ";", lng2, ",", lat2,
+                     "?overview=full", sep = "", NULL)
+  }
   R.utils::withTimeout({
     repeat {
       res <- try(
         route <- rjson::fromJSON(
-          file = paste(address, "/route/v1/driving/",
-                       lng1, ",", lat1, ";", lng2, ",", lat2,
-                       "?overview=false", sep = "", NULL)))
+          file = request))
       if (class(res) != "try-error") {
         if (!is.null(res)) {
           break # waytime found
@@ -167,3 +174,4 @@ viaroute_api_v5 <- function(lat1, lng1, lat2, lng2, instructions, address) {
     return(res)
   }
 }
+

@@ -19,14 +19,14 @@
 #'
 #' @examples
 #' # direct examples of the online API
-#' link <- "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=false"
+#' \dontrun{
+#' #' link <- "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=false"
 #' a <- rjson::fromJSON(file = link)
 #'
 #' # example with onlinehost API5
 #' osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 5, FALSE)
 #'
 #' # examples with localhost API4/API5
-#' \dontrun{
 #' Sys.setenv("OSRM_PATH"="C:/OSRM_API4")
 #' osrmr::run_server("switzerland-latest.osrm")
 #' osrmr::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 4, TRUE)
@@ -126,11 +126,11 @@ viaroute_api_v4 <- function(lat1, lng1, lat2, lng2, instructions, address) {
 #' @return a numeric or a list (depending on parameter instructions)
 #'
 #' @examples
+#' \dontrun{
 #' # example with onlinehost
 #' osrmr:::viaroute_api_v5(47, 9, 48, 10 , FALSE, osrmr:::server_address(FALSE))
 #'
 #' # example with localhost
-#' \dontrun{
 #' Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
 #' osrmr::run_server("switzerland-latest.osrm")
 #' osrmr:::viaroute_api_v5(47, 9, 48, 10 , FALSE, osrmr:::server_address(TRUE))

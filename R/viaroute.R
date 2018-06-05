@@ -38,7 +38,7 @@
 #' osrmr::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, 5, TRUE)
 #' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH")}
-viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhost) {
+viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhost, timeout = 0.001) {
   assertthat::assert_that(api_version %in% c(4,5))
   address <- server_address(localhost)
 
@@ -47,6 +47,7 @@ viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhos
   } else {
     viaroute_api_v5(lat1, lng1, lat2, lng2, instructions, address)
   }
+  Sys.sleep(timeout)
 }
 
 

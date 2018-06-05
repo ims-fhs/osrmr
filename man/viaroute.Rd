@@ -4,7 +4,8 @@
 \alias{viaroute}
 \title{travel time or full information of a route}
 \usage{
-viaroute(lat1, lng1, lat2, lng2, instructions, api_version, localhost)
+viaroute(lat1, lng1, lat2, lng2, instructions, api_version, localhost,
+  timeout = 0.001)
 }
 \arguments{
 \item{lat1}{A numeric (-90 < lat1 < 90) -> start-destination}

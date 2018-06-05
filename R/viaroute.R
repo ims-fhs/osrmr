@@ -42,12 +42,13 @@ viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhos
   assertthat::assert_that(api_version %in% c(4,5))
   address <- server_address(localhost)
 
+  Sys.sleep(timeout)
   if (api_version == 4) {
     viaroute_api_v4(lat1, lng1, lat2, lng2, instructions, address)
   } else {
     viaroute_api_v5(lat1, lng1, lat2, lng2, instructions, address)
   }
-  Sys.sleep(timeout)
+
 }
 
 

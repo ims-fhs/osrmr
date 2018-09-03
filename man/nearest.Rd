@@ -4,7 +4,7 @@
 \alias{nearest}
 \title{nearest accessible position}
 \usage{
-nearest(lat, lng, api_version = 5, localhost = F)
+nearest(lat, lng, api_version = 5, localhost = F, timeout = 0.001)
 }
 \arguments{
 \item{lat, }{A numeric (-90 < lat < 90)}

@@ -27,11 +27,11 @@
 #' osrmr::nearest(47,9, 4, TRUE)
 #' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH_API_4")}
-nearest <- function(lat, lng, api_version = 5, localhost = F) {
+nearest <- function(lat, lng, api_version = 5, localhost = F, timeout = 0.001) {
   assertthat::assert_that(api_version %in% c(4,5))
 
   address <- server_address(localhost)
-
+  Sys.sleep(timeout)
   if (api_version == 4) {
     nearest <- nearest_api_v4(lat, lng, address)
   } else {

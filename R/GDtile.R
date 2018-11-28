@@ -1,13 +1,40 @@
+#' route on a map
+#'
+#' @param coordinates A character which contains the coordinates "lat1,lng1;lat2,lng2..."
+#' (-90 < lat < 90)
+#' (-180 < lng <180)
+#' @param n A numeric (the number of coordinates)
+#' @param localhost A logical(TRUE-localhost is used, FALSE=onlinehost is used)
+#'
+#' @return route in a map
+#' @export
+#'
+#' @examples
+#'
+#' coordinates <- "21.034426,43.3878;9.368092,47.422701"
+#' n <- 2
+#'
+#' tile(coordinates,n,F)
+#'
+tile <- function(coordinates,n,localhost)
+{
 
-address <- "http://router.project-osrm.org"
-lat1 <- 47.49642
-lng1 <- 9.240543
-lat2 <- 47.423255
-lng2 <- 9.367246
-lat3 <- 47.483255
-lng3 <- 9.357246
+  address <- server_address(localhost)
 
-route <- rjson::fromJSON(file = paste(address, "/route/v1/driving/", lng1, ",", lat1,";", lng2, ",", lat2,";", lng3, ",", lat3,"?overview=full", sep = "", NULL))
+  R.utils::withTimeout({
+    repeat {
+      route <- try(res <- rjson::fromJSON(file = paste(address, "/route/v1/driving/", coordinates, sep = "", NULL)))
+      if (class(route) != "try-error") {
+        if (!is.null(route)) {
+          break # waytime found
+        } else {
+          stop("in sim911::osrm_viaroute: calculate nearest necessary?")
+        }
+      }
+    }
+  }, timeout = 1, onTimeout = "warning")
+
+
 
 #make a string to nicely label the route
 s <- route$routes[[1]]$duration
@@ -59,9 +86,12 @@ path <- decode(route$routes[[1]]$geometry, multiplier=1e5)
 library(leaflet)
 m <- leaflet(width="100%") %>%
   addTiles()  %>%
-  addPolylines(data=path, popup=routelabel, color = "#000000", opacity=1, weight = 3) %>%
-  addMarkers(lng=lng1, lat=lat1, popup=route$waypoints[[1]]$name) %>%
-  addMarkers(lng=lng2, lat=lat2, popup=route$waypoints[[2]]$name) %>%
-  addMarkers(lng=lng3, lat=lat3, popup=route$waypoints[[3]]$name)
-m
+  addPolylines(data=path, popup=routelabel, color = "#000000", opacity=1, weight = 3)
+
+  for (i in 1:n){
+  m <- addMarkers(m,lng=route$waypoints[[i]]$location[1], lat=route$waypoints[[i]]$location[2], popup=route$waypoints[[i]]$name)
+  }
+
+return(m)
+}
 

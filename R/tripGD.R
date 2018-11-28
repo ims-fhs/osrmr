@@ -1,4 +1,4 @@
-#' soves the Traveling Salesman Problem
+#' solves the Traveling Salesman Problem
 #'
 #'
 #'The trip function solves the Traveling Salesman Problem. The returned path does not have to be the fastest path.

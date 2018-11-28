@@ -8,13 +8,15 @@
 #' @export
 #'
 #' @examples
+#'
 #' osrmr:::server_address(TRUE)
 #' Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
 #' osrmr::run_server("switzerland-latest.osrm")
 #'
+#' address      <- "http://localhost:5000"
 #' coordinates  <- "9.382589,47.428731;9.240543,47.49642;9.252642,47.412704"
 #' n            <- 3
-#' address      <- "http://localhost:5000"
+#'
 #'
 #' fastest_local(coordinates, address, n)
 #'

@@ -20,8 +20,8 @@
 #' osrmr:::server_address(TRUE)
 #' Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
 #' osrmr::run_server("switzerland-latest.osrm")
-#' address <- "http://localhost:5000"
 #'
+#' address <- "http://localhost:5000"
 #' lng1 <- 9.382589
 #' lat1 <- 47.428731
 #' lng2 <- 9.240543

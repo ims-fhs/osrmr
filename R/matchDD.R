@@ -9,17 +9,17 @@
 #' @param n           Number of coordination points
 #'
 #' @return            A data.frame with the name of the Street and waypoint. Fields with NA represents the streets,
-#'                    which the system didn't found
+#'                    that the system didn't found
 #' @export
 #'
 #' @examples
-#' 9.36725,47.423248;
+#'
 #' osrmr:::server_address(TRUE)
 #' Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
 #' osrmr::run_server("switzerland-latest.osrm")
 #'
-#' coordinates <- "9.240543,47.49642;9.36725,47.423248;9.367511,47.423327;9.367394,47.423563"
 #' address <- "http://localhost:5000"
+#' coordinates <- "9.240543,47.49642;9.36725,47.423248;9.367511,47.423327;9.367394,47.423563"
 #' n <- 4
 #'
 #' match_local(coordinates, address, n)

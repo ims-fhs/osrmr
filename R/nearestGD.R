@@ -1,10 +1,24 @@
-#nearest function
-#
-#
-#
-#
-#
-#
+#' nearest accessible position
+#'
+#'nearest() calculates the nearest position to the given coordinates which can be accessed by car.
+#' The coordinate-standard is WGS84. Attention: The OSRM API v4 is only working locally, but
+#' not with the 'OSRM' webserver.
+#'
+#' @param lat A numeric (-90 < lat < 90)
+#' @param lng A numeric (-180 < lng < 180)
+#' @param localhost A logical (TRUE = localhost is used, FALSE = onlinehost is used)
+#' @param solutions A numeric (number of different solutions)
+#'
+#' @return A data.frame with lat, lng and distance to the original point
+#' @export
+#'
+#' @examples
+#'
+#' lat <- 9.382589
+#' lng <- 47.428731
+#'
+#' nearest(lat,lng,F,3)
+#'
 nearest <- function(lat, lng, localhost, solutions)
 {
 address <- server_address(localhost)

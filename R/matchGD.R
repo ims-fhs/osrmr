@@ -1,32 +1,33 @@
-#function match
-#
-#
-#PROBLEM MIT KOORDINATEN, WELCHE NICHT UNTER 60 SEKUNDEN SIND!!!
-#
-#
-#
-#lat1 <- 47.4623349064579
-#lng1 <- 9.042273759841919
-#lat2 <- 47.46229863897051
-#lng2 <- 9.042563438415527
-#lat3 <- 47.462226103920706
-#lng3 <- 9.042906761169434
-#lat4 <- 47.46213751232282
-#lng4 <- 9.043614864349365
-#
-#n <- 4
-#
-#coordinates <- "23.432,432;43,34;......"
-# lng1 etc. müssten in rjson ersetzt werden, damit mehr Koordinaten eingeführt werden können
-
-match_service <- function(lat1, lng1, lat2, lng2, lat3, lng3, lat4, lng4, n, localhost){
+#' GPS points are matched to the road network
+#'
+#' Map matching matches given GPS points to the road network in the most plausible way.
+#' Large jumps in the timestamps (> 60s) or improbable transitions lead to trace splits if a complete matching could not be found.
+#' The algorithm might not be able to match all points. Outliers are removed if they can not be matched successfully.
+#'
+#' @param coordinates A character which contains the coordinates "lat1,lng1;lat2,lng2..."
+#' (-90 < lat < 90)
+#' (-180 < lng <180)
+#' @param n A numeric (the number of coordinates)
+#' @param localhost A logical(TRUE-localhost is used, FALSE=onlinehost is used)
+#'
+#' @return A list with two data.frames incl. all the information
+#' @export
+#'
+#' @examples
+#'
+#' coordinates <- "47.4623349064579,9.042273759841919;47.46229863897051,9.042563438415527;47.462226103920706,9.042906761169434;47.46213751232282,9.043614864349365"
+#' n <- 4
+#'
+#' match_service(coordinates,n,F)
+#'
+match_service <- function(coordinates, n, localhost){
 
   address <- server_address(localhost)
 
 R.utils::withTimeout({
   repeat {
     goal <- try(
-      match_service <- rjson::fromJSON(file = paste(address, "/match/v1/driving/", lng1, ",", lat1,";", lng2, ",", lat2,";",lng3, ",", lat3,";",lng4, ",", lat4, sep = "", NULL)))
+      match_service <- rjson::fromJSON(file = paste(address, "/match/v1/driving/", "coordinates", sep = "", NULL)))
 
     if (class(goal) != "try-error") {
       if (!is.null(goal)) {

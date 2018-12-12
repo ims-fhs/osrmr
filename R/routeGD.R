@@ -1,41 +1,51 @@
 #' travel time or full information of a route
 #'
-#'For a given start- and end-destination, viaroute() calculates route informations using OSRM.
+#' For a given start- and end-destination, route() calculates route informations using OSRM.
 #' OSRM chooses the nearest point which can be accessed by car for the start- and end-destination.
 #' The coordinate-standard is WGS84.
 #'
-#'
-#' @param coordinates A character which contains the coordinates "lat1,lng1;lat2,lng2..."
-#' (-90 < lat < 90)
-#' (-180 < lng <180)
+#' @param lat1 A numeric (-90 < lat1 < 90) -> start-destination
+#' @param lng1 A numeric (-180 < lng1 < 180) -> start-destination
+#' @param lat2 A numeric (-90 < lat2 < 90) -> end-destination
+#' @param lng2 A numeric (-180 < lng2 < 180) -> end-destination
+#' @param return.as A character. If "time", only the traveltime (in seconds, as numeric) will be returned.
+#'  If "geometry", the geometry of the route is returned (as character).
 #' @param localhost A logical (TRUE = localhost is used, FALSE = onlinehost is used)
-#' @param instructions A logical. If FALSE, only the traveltime (in seconds, as data.frame) will be returned.
-#'  If TRUE, more details of the route are returned (as list).
 #'
-#' @return a data.frame or a list (depending on instructions)
+#' @return a numeric or a character (depending on return.as)
 #' @export
 #'
 #' @examples
+#' # direct examples of the online API
+#' \dontrun{
+#' #' link <- "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=false"
+#' a <- rjson::fromJSON(file = link)
 #'
-#' coordinates <- "47.4623349064579,9.042273759841919;47.46229863897051,9.042563438415527;47.462226103920706,9.042906761169434;47.46213751232282,9.043614864349365"
-#' n <- 4
+#' # example with onlinehost
+#' osrmr:::viaroute(47.1, 8.1, 46.9, 8.3,"time", FALSE)
 #'
-#' route(coordinates,n,F)
+#' # examples with localhost
 #'
-route<- function(coordinates, localhost, instructions) {
+#' Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
+#' osrmr::run_server("switzerland-latest.osrm")
+#' osrmr::viaroute(47.1, 8.1, 46.9, 8.3,"time" , TRUE)
+#' osrmr::quit_server()
+#' Sys.unsetenv("OSRM_PATH")}
+route <- function(lat1, lng1, lat2, lng2, return.as = c("time", "geometry"), localhost, timeout = 0.001) {
+  assertthat::assert_that(return.as %in% c("time","geometry"))
+  address <- osrmr:::server_address(localhost)
 
-   address <- server_address(localhost)
+  Sys.sleep(timeout)
 
-  if (!instructions) {
+  if (return.as=="time") {
     request <- paste(address, "/route/v1/driving/",
-                     "coordinates",
+                     lng1, ",", lat1, ";", lng2, ",", lat2,
                      "?overview=false", sep = "", NULL)
   } else {
     request <- paste(address, "/route/v1/driving/",
-                     "coordinates",
+                     lng1, ",", lat1, ";", lng2, ",", lat2,
                      "?overview=full", sep = "", NULL)
   }
-
   R.utils::withTimeout({
     repeat {
       res <- try(
@@ -50,44 +60,18 @@ route<- function(coordinates, localhost, instructions) {
       }
     }
   }, timeout = 1, onTimeout = "warning")
+
   assertthat::assert_that(assertthat::is.number(res$routes[[1]]$duration))
 
-  if (!instructions) {
+  if (return.as=="time") {
     if (res$code == "Ok") {
-
-
-      route_service <- data.frame(Lat=NA, Lng=NA, Location=NA, Duration=NA, Disatnce=NA,stringsAsFactors = F)
-      route_service[1,] <- c(res$waypoints[[1]]$location[2],res$waypoints[[1]]$location[1],res$waypoints[[1]]$name,res$routes[[1]]$duration,res$routes[[1]]$distance)
-      route_service[2,] <- c(res$waypoints[[n]]$location[2],res$waypoints[[n]]$location[1],res$waypoints[[n]]$name,NA,NA)
-
-      return(route_service)
-
-
+      return(res$routes[[1]]$duration)
     } else {
       t_guess <- 16*60
       warning("Route not found: ", paste(lat1, lng1, lat2, lng2, collapse = ", "),
               ". Travel time set to ", t_guess/60 , " min.")
     }
   } else {
-
-    a <- n-1
-    solution <- data.frame(Lat=NA, Lng=NA, Duration=NA, Disatnce=NA)
-    for (i in 1:a){
-      solution[i,1] <- data.frame(res$waypoints[[i]]$location[2])
-      solution[i,2] <- data.frame(res$waypoints[[i]]$location[1])
-      solution[i,3] <- data.frame(res$routes[[1]]$legs[[i]]$duration)
-      solution[i,4] <- data.frame(res$routes[[1]]$legs[[i]]$distance)
-
-    }
-    solution[n,] <- (c(res$waypoints[[n]]$location[2],res$waypoints[[n]]$location[1],NA,NA))
-
-    route_service <- data.frame(Lat=NA, Lng=NA, Location=NA, Duration=NA, Disatnce=NA,stringsAsFactors = F)
-    route_service[1,] <- c(res$waypoints[[1]]$location[2],res$waypoints[[1]]$location[1],res$waypoints[[1]]$name,res$routes[[1]]$duration,res$routes[[1]]$distance)
-    route_service[2,] <- c(res$waypoints[[n]]$location[2],res$waypoints[[n]]$location[1],res$waypoints[[n]]$name,NA,NA)
-
-    geometry <- data.frame(geometry=res$routes[[1]]$geometry)
-
-    return(list(solution, route_service,geometry))
-
+    return(res$routes[[1]]$geometry)
   }
 }

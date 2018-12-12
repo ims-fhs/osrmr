@@ -4,56 +4,43 @@
 #' Large jumps in the timestamps (> 60s) or improbable transitions lead to trace splits if a complete matching could not be found.
 #' The algorithm might not be able to match all points. Outliers are removed if they can not be matched successfully.
 #'
-#' @param coordinates A character which contains the coordinates "lat1,lng1;lat2,lng2..."
+#' @param coordinates A date.frame which contains 3 column: ID, Lat, Lng
+#' Lat and Lng are coordinates with the following notation:
 #' (-90 < lat < 90)
 #' (-180 < lng <180)
-#' @param n A numeric (the number of coordinates)
 #' @param localhost A logical(TRUE-localhost is used, FALSE=onlinehost is used)
 #'
-#' @return A list with two data.frames incl. all the information
+#' @return A data.frame with the new coordinates
 #' @export
 #'
 #' @examples
 #'
-#' coordinates <- "47.4623349064579,9.042273759841919;47.46229863897051,9.042563438415527;47.462226103920706,9.042906761169434;47.46213751232282,9.043614864349365"
-#' n <- 4
+#' coordinates <- data.frame(ID=1:3,lat=c(47.4623349064579,47.46229863897051,47.462226103920706),lng=c(9.042273759841919,9.042563438415527,9.042906761169434))
 #'
-#' match_service(coordinates,n,F)
 #'
-match_service <- function(coordinates, n, localhost){
+#' match_service(coordinates,F)
+#'
+match_service <- function(coordinates, localhost){
 
-  address <- server_address(localhost)
+  n <- nrow(coordinates)
+  address <- osrmr:::server_address(localhost)
 
-R.utils::withTimeout({
-  repeat {
-    goal <- try(
-      match_service <- rjson::fromJSON(file = paste(address, "/match/v1/driving/", "coordinates", sep = "", NULL)))
+  coordinates_char <- input_address(coordinates)
 
-    if (class(goal) != "try-error") {
-      if (!is.null(goal)) {
-        break # waytime found
-      } else {
-        stop("in sim911::osrm_viaroute: calculate nearest necessary?")
-      }
-    }
-  }
-}, timeout = 1, onTimeout = "warning")
+  code <- paste(address, "/match/v1/driving/", coordinates_char, sep = "", NULL)
 
-a <- n-1
-solution <- data.frame(Lat=NA, Lng=NA, Duration=NA, Disatnce=NA)
-for (i in 1:a){
+  goal <-  timeout(code)
+
+solution <- data.frame(Lat=numeric(), Lng=numeric())
+for (i in 1:n){
   solution[i,1] <- data.frame(goal$tracepoints[[i]]$location[2])
   solution[i,2] <- data.frame(goal$tracepoints[[i]]$location[1])
-  solution[i,3] <- data.frame(goal$matchings[[1]]$legs[[i]]$duration)
-  solution[i,4] <- data.frame(goal$matchings[[1]]$legs[[i]]$distance)
+
 
 }
-solution[n,] <- (c(goal$tracepoints[[n]]$location[2],goal$tracepoints[[n]]$location[1],NA,NA))
 
-match_service <- data.frame(Lat=NA, Lng=NA, Location=NA, Duration=NA, Disatnce=NA,stringsAsFactors = F)
-match_service[1,] <- c(goal$tracepoints[[1]]$location[2],goal$tracepoints[[1]]$location[1],goal$tracepoints[[1]]$name,goal$matchings[[1]]$duration,goal$matchings[[1]]$distance)
-match_service[2,] <- c(goal$tracepoints[[n]]$location[2],goal$tracepoints[[n]]$location[1],goal$tracepoints[[n]]$name,NA,NA)
-
-return(list(solution, match_service))
-
+return(solution)
 }
+
+
+

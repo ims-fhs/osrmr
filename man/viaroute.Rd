@@ -22,6 +22,8 @@ If TRUE, more details of the route are returned (as list).}
 \item{api_version}{A numeric (either 4 or 5)}
 
 \item{localhost}{A logical (TRUE = localhost is used, FALSE = onlinehost is used)}
+
+\item{timeout}{A numeric indicating the timeout between server requests (in order to prevent queue overflows). Default is 0.001s.}
 }
 \value{
 a numeric or a list (depending on instructions)

@@ -8,7 +8,7 @@
 
 ## Reverse dependencies
 
-This version does not include any API changes or changes of functionality.
 There are no reverse dependencies affected.
+This version does only introduce minor API changes, namely an optional parameter 'timeout' for the functions 'viaroute' and 'nearest' that is preset to 0.001s.
 
 ---

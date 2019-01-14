@@ -95,8 +95,6 @@ server_address <- function(use_localhost) {
 #'
 #' @return A list. The dimenstions of the list depend on the request and if the server reacted
 #' properly or not.
-#'
-#' @examples
 make_request <- function(request) {
   R.utils::withTimeout({
     res <- tryCatch(

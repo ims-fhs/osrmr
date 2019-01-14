@@ -8,6 +8,7 @@
 #' @param lng, A numeric (-180 < lng < 180)
 #' @param api_version, A numeric (either 4 or 5)
 #' @param localhost, A logical (TRUE = localhost is used, FALSE = onlinehost is used)
+#' @param timeout A numeric indicating the timeout between server requests (in order to prevent queue overflows). Default is 0.001s.
 #'
 #' @return A data.frame with lat and lng
 #' @export

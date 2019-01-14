@@ -13,6 +13,7 @@
 #'  If TRUE, more details of the route are returned (as list).
 #' @param api_version A numeric (either 4 or 5)
 #' @param localhost A logical (TRUE = localhost is used, FALSE = onlinehost is used)
+#' @param timeout A numeric indicating the timeout between server requests (in order to prevent queue overflows). Default is 0.001s.
 #'
 #' @return a numeric or a list (depending on instructions)
 #' @export

@@ -85,7 +85,7 @@ server_address <- function(use_localhost) {
 #' Run one server request for OSRM (online- or localhost)
 #'
 #' In order to fail gracefully, this function handles errors and warnings if the asked
-#' server (online- or localhost) doesn't work properly. In this case the errormessage is
+#' server (online- or localhost) doesn't work properly. In this case the error message is
 #' returned and connections are closed using base::closeAllConnections().
 #'
 #' If the asked server doesn't react within 1 second, a warning is thrown using
@@ -93,7 +93,7 @@ server_address <- function(use_localhost) {
 #'
 #' @param request A character
 #'
-#' @return A list. The dimenstions of the list depend on the request and if the server reacted
+#' @return A list. The dimension of the list depends on the request and wether the server reacted
 #' properly or not.
 make_request <- function(request) {
   R.utils::withTimeout({

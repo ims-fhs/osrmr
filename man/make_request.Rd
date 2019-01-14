@@ -10,12 +10,12 @@ make_request(request)
 \item{request}{A character}
 }
 \value{
-A list. The dimenstions of the list depend on the request and if the server reacted
+A list. The dimension of the list depends on the request and wether the server reacted
 properly or not.
 }
 \description{
 In order to fail gracefully, this function handles errors and warnings if the asked
-server (online- or localhost) doesn't work properly. In this case the errormessage is
+server (online- or localhost) doesn't work properly. In this case the error message is
 returned and connections are closed using base::closeAllConnections().
 }
 \details{

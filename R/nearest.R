@@ -61,8 +61,8 @@ nearest <- function(lat, lng, api_version = 5, localhost = F, timeout = 0.001) {
 #' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH_API_4")}
 nearest_api_v4 <- function(lat, lng, address) {
-  nearest <- rjson::fromJSON(file = paste(address, "/nearest?loc=",
-                                        lat, ",", lng, sep = "", NULL))$mapped_coordinate
+  request <- paste(address, "/nearest?loc=", lat, ",", lng, sep = "", NULL)
+  nearest <- make_request(request)$mapped_coordinate
   nearest <- data.frame(
     lat = nearest[1],
     lng = nearest[2]
@@ -90,8 +90,8 @@ nearest_api_v4 <- function(lat, lng, address) {
 #' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH_API_5")}
 nearest_api_v5 <- function(lat, lng, address) {
-  nearest <- rjson::fromJSON(file = paste(address, "/nearest/v1/driving/",
-                                          lng, ",", lat, "?number=1", sep = "", NULL))$waypoints[[1]]$location
+  request <-paste(address, "/nearest/v1/driving/", lng, ",", lat, "?number=1", sep = "", NULL)
+  nearest <- make_request(request)$waypoints[[1]]$location
   nearest <- data.frame(
     lat = nearest[2],
     lng = nearest[1]

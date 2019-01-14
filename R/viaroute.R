@@ -77,22 +77,9 @@ viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhos
 #' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH")}
 viaroute_api_v4 <- function(lat1, lng1, lat2, lng2, instructions, address) {
-  R.utils::withTimeout({
-    repeat{
-      res <- try(
-        route <- rjson::fromJSON(
-          file = paste(address, "/viaroute?loc=",
-                       lat1, ',', lng1, '&loc=', lat2, ',', lng2, sep = "", collapse = NULL)))
-      # Handle error from try:
-      if (class(res) != "try-error") {
-        if (!is.null(res)) {
-          break # waytime found
-        } else {
-          stop("in osrm::viaroute: calculate nearest necessary?")
-        }
-      }
-    }
-  }, timeout = 1, onTimeout = "warning")
+  request <- paste(address, "/viaroute?loc=",
+                   lat1, ',', lng1, '&loc=', lat2, ',', lng2, sep = "", collapse = NULL)
+  res <- make_request(request)
 
   if (!instructions) {
     if (!res$status == 207) {
@@ -148,23 +135,7 @@ viaroute_api_v5 <- function(lat1, lng1, lat2, lng2, instructions, address) {
                      lng1, ",", lat1, ";", lng2, ",", lat2,
                      "?overview=full", sep = "", NULL)
   }
-  R.utils::withTimeout({
-      res <- tryCatch(
-        {
-          rjson::fromJSON(file = request)
-        },
-        error = function(cond) {
-          message("Error:  OSRM Onlinehost doesn't react -> Time set to 16min ")
-          # message(cond)
-          return(list(routes = list(list(duration = 16*60)), code = "Ok"))},
-        warning = function(cond) {
-          message("Warning: OSRM Onlinehost doesn't react -> Time set to 16min ")
-          # message(cond)
-          return(list(routes = list(list(duration = 16*60)), code = "Ok"))
-        }
-        )},
-
-      timeout = 1, onTimeout = "warning")
+  res <- make_request(request)
 
   assertthat::assert_that(assertthat::is.number(res$routes[[1]]$duration))
 
@@ -172,11 +143,11 @@ viaroute_api_v5 <- function(lat1, lng1, lat2, lng2, instructions, address) {
     if (res$code == "Ok") {
       return(res$routes[[1]]$duration)
     }
-    # else {
-    #   t_guess <- 16*60
-    #   warning("Route not found: ", paste(lat1, lng1, lat2, lng2, collapse = ", "),
-    #           ". Travel time set to ", t_guess/60 , " min.")
-    # }
+    else {
+      t_guess <- 16*60
+      warning("Route not found: ", paste(lat1, lng1, lat2, lng2, collapse = ", "),
+              ". Travel time set to ", t_guess/60 , " min.")
+    }
   } else {
     return(res)
   }

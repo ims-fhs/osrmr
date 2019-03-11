@@ -1,8 +1,8 @@
 Package: osrmr
 Type: Package
 Title: Wrapper for the 'OSRM' API
-Version: 0.1.35
-Date: 2019-01-14
+Version: 0.1.36
+Date: 2019-03-11
 Author: Adrian Staempfli, Christoph Strauss
 Maintainer: Adrian Staempfli <adrian.staempfli@fhsg.ch>
 Description: Wrapper around the 'Open Source Routing Machine (OSRM)'
@@ -11,9 +11,10 @@ Description: Wrapper around the 'Open Source Routing Machine (OSRM)'
         'OSRM' webserver.
 License: GPL-3
 LazyData: TRUE
+Encoding: UTF-8
 Imports: assertthat, bitops, rjson, R.utils, stringr
 Suggests: testthat, knitr, rmarkdown, microbenchmark
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 SystemRequirements: To use the Localhost of OSRM, you need to build
         OSRM

@@ -24,8 +24,8 @@
 #' a <- rjson::fromJSON(file = link)
 #'
 #' # example with onlinehost
-#' osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, FALSE)
-#' osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, TRUE)
+#' osrmr::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, FALSE)
+#' osrmr::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, TRUE)
 #'
 #' # example with localhost
 #' Sys.setenv("OSRM_PATH"="C:/OSRM_API5")

@@ -2,13 +2,12 @@
 % Please edit documentation in R/match.R
 \name{match}
 \alias{match}
-\title{GPS points are matched to the road network}
+\title{Match GPS points to the road network in the most plaubislbe way}
 \usage{
 match(coordinates, localhost)
 }
 \arguments{
-\item{coordinates}{A date.frame which contains 3 column: ID, lat, lng
-lat and lng are coordinates with the following notation:
+\item{coordinates}{A data.frame with 2 columns "lat", "lng", giving a set of WGS84 coordinates.
 (-90 < lat < 90)
 (-180 < lng <180)}
 
@@ -18,15 +17,22 @@ lat and lng are coordinates with the following notation:
 A data.frame with the new coordinates
 }
 \description{
-Map matching matches given GPS points to the road network in the most plausible way.
-Large jumps in the timestamps (> 60s) or improbable transitions lead to trace splits if a complete matching could not be found.
-The algorithm might not be able to match all points. Outliers are removed if they can not be matched successfully.
+Details see: http://project-osrm.org/docs/v5.5.1/api/#match-service
+Large jumps in the timestamps (> 60s) or improbable transitions lead to trace
+splits if a complete matching could not be found. The algorithm might not be
+able to match all points. Outliers are removed if they can not be matched successfully.
 }
 \examples{
-coordinates <- data.frame(id=c(12,8,1),
-lat=c(47.4623349064579,47.46229863897051,47.462226103920706),
-lng=c(9.042273759841919,9.042563438415527,9.042906761169434))
+coordinates <- data.frame(lat=c(47.4623,47.4622,47.4622),
+lng=c(9.0422,9.0425,9.0429))
+\dontrun{
+# example with onlinehost
+osrmr:::match(coordinates,F)
 
-match(coordinates,F)
-match(coordinates,T)
+# example with localhost
+Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
+osrmr::run_server("switzerland-latest.osrm")
+osrmr::match(coordinates,T)
+osrmr::quit_server()
+Sys.unsetenv("OSRM_PATH")}
 }

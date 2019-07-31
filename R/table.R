@@ -1,12 +1,12 @@
-#'uration of the fastest route between all pairs of supplied coordinates
+#' Calculate a distance matrix for given coordinates
 #'
-#'For given coordinates, table() calculates route informations using OSRM.
-#'OSRM choooses the nearest point which can be accessed by car for the coordinates.
-#'The coordinate-standard is WGS84.
+#' Given a set of coordinates, this function uses every coordinate once as start
+#' and destination. For further details see:
+#' http://project-osrm.org/docs/v5.5.1/api/#table-service
 #'
-#'
-#' @param coordinates A date.frame which contains 3 column: id, lat, lng
-#' Lat and Lng are coordinates with the following notation:
+#' @param coordinates A data.frame with 3 columns: id, lat, lng.
+#' id can be numeric or a character
+#' Lat and lng are coordinates in WGS84-format - numeric.
 #' (-90 < lat < 90)
 #' (-180 < lng <180)
 #' @param localhost A logical(TRUE-localhost is used, FALSE=onlinehost is used)
@@ -17,18 +17,19 @@
 #'
 #' @examples
 #'
-#' coordinates <- data.frame(id=c(12,8,1),
-#' lat=c(47.4623349064579,47.46229863897051,47.462226103920706),
-#' lng=c(9.042273759841919,9.042563438415527,9.042906761169434))
-#'
-#' coordinates2 <- data.frame(id=c(12,8,1),
+#' coordinates <- data.frame(id=c("z", "b", "c"),
 #' lat=c(47.4,47.5,47.6),
-#' lng=c(9.0,9.1,9.2))
+#' lng=c(9.04,9.04,9.04))
+#' \dontrun{
+#' # example with onlinehost
+#' osrmr::table(coordinates,T)
 #'
-#' table(coordinates,F)
-#' table(coordinates,T)
-#' table(coordinates2,F)
-#' table(coordinates2,T)
+#' # example with localhost
+#' Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
+#' osrmr::run_server("switzerland-latest.osrm")
+#' osrmr::table(coordinates,T)
+#' osrmr::quit_server()
+#' Sys.unsetenv("OSRM_PATH")}
 table <- function(coordinates, localhost){
   address <- osrmr:::server_address(localhost)
   coordinates_char <- paste(coordinates$lng, coordinates$lat, sep = ",", collapse = ";")

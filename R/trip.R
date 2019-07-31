@@ -1,25 +1,35 @@
-#' solves the Traveling Salesman Problem
+#' Find a solution for the TSP (Traveling Salesman Problem)
 #'
+#' The trip function solves the Traveling Salesman Problem using a greedy heuristic
+#' (farthest-insertion algorithm). The returned path does not have to be the fastest
+#' path as TSP is NP-hard it is only an approximation. Note that if the input coordinates
+#' can not be joined by a single trip (e.g. the coordinates are on several disconnected
+#' islands) multiple trips for each connected component are returned.
+#' For further details see:
+#' http://project-osrm.org/docs/v5.5.1/api/#trip-service
 #'
-#'The trip function solves the Traveling Salesman Problem. The returned path does not have to be the fastest path.
-#'As TSP is NP-hard it only returns an approximation.
-#'
-#' @param coordinates A date.frame which contains 3 column: id, lat, lng
-#' lat and lng are coordinates with the following notation:
+#' @param coordinates A data.frame with 2 columns: lat, lng.
+#' lat and lng are coordinates in WGS84-format - numeric.
 #' (-90 < lat < 90)
 #' (-180 < lng <180)
 #' @param localhost A logical(TRUE-localhost is used, FALSE=onlinehost is used)
 #'
-#' @return A numeric giving the trip-index for every input-coordinates
+#' @return A numeric vector giving the trip-index for every input-coordinate
 #' @export
 #'
 #' @examples
-#' coordinates <- data.frame(id=1:3,
-#' lat=c(47.4623349064579,47.46229863897051,47.462226103920706),
-#' lng=c(9.042273759841919,9.042563438415527,9.042906761169434))
+#' coordinates <- data.frame(lat=c(47.4623,47.4622,47.4622),lng=c(9.0422,9.0425,9.0429))
 #'
-#' trip(coordinates,F)
-#' trip(coordinates,T)
+#' \dontrun{
+#' # example with onlinehost
+#' osrmr:::trip(coordinates,F)
+#'
+#' # example with localhost
+#' Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
+#' osrmr::run_server("switzerland-latest.osrm")
+#' osrmr::trip(coordinates,T)
+#' osrmr::quit_server()
+#' Sys.unsetenv("OSRM_PATH")}
 trip <- function(coordinates, localhost){
 
   address <- osrmr:::server_address(localhost)

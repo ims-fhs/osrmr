@@ -37,7 +37,7 @@ Attention: The OSRM API-4 is only working locally, but not with the onlinehost.
 \examples{
 # direct examples of the online API
 \dontrun{
-#' link <- "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=false"
+link <- "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=false"
 a <- rjson::fromJSON(file = link)
 
 # example with onlinehost API5

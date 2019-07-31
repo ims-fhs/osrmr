@@ -30,6 +30,10 @@
 #' Sys.unsetenv("OSRM_PATH_API_4")}
 nearest <- function(lat, lng, api_version = 5, localhost = F, timeout = 0.001) {
   assertthat::assert_that(api_version %in% c(4,5))
+  if (!missing(api_version)) {
+    warning("argument 'api_version' is deprecated; After the next release only API5 will be available",
+            call. = FALSE)
+  }
 
   address <- server_address(localhost)
   Sys.sleep(timeout)

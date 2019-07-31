@@ -21,7 +21,7 @@
 #' @examples
 #' # direct examples of the online API
 #' \dontrun{
-#' #' link <- "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=false"
+#' link <- "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps=false"
 #' a <- rjson::fromJSON(file = link)
 #'
 #' # example with onlinehost API5
@@ -40,6 +40,7 @@
 #' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH")}
 viaroute <- function(lat1, lng1, lat2, lng2, instructions, api_version, localhost, timeout = 0.001) {
+  .Deprecated("osrmr::route")
   assertthat::assert_that(api_version %in% c(4,5))
   address <- server_address(localhost)
 

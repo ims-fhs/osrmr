@@ -1,14 +1,15 @@
-#' travel time or full information of a route
+#' Calculate travel time or full information of a route
 #'
-#' For a given start- and end-destination, route() calculates route informations using OSRM.
-#' OSRM chooses the nearest point which can be accessed by car for the start- and end-destination.
-#' The coordinate-standard is WGS84.
+#' For a given start- and end-destination, route() calculates route informations
+#' using OSRM. OSRM chooses the nearest point which can be accessed by car for
+#' the start- and end-destination. The coordinate-standard is WGS84.
 #'
 #' @param lat1 A numeric (-90 < lat1 < 90) -> start-destination
 #' @param lng1 A numeric (-180 < lng1 < 180) -> start-destination
 #' @param lat2 A numeric (-90 < lat2 < 90) -> end-destination
 #' @param lng2 A numeric (-180 < lng2 < 180) -> end-destination
-#' @param instructions A logical. If FALSE, only the traveltime (in seconds, as numeric) will be returned.
+#' @param instructions A logical. If FALSE, only the traveltime (in seconds,
+#' as numeric) will be returned.
 #'  If TRUE, the geometry of the route is returned as character.
 #' @param localhost A logical (TRUE = localhost is used, FALSE = onlinehost is used)
 #' @param timeout
@@ -33,7 +34,7 @@
 #' osrmr::route(47.1, 8.1, 46.9, 8.3, TRUE, 5, TRUE)
 #' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH")}
-route <- function(lat1, lng1, lat2, lng2, localhost, instructions = FALSE, timeout = 0.001) {
+viaroute <- function(lat1, lng1, lat2, lng2, localhost, instructions = FALSE, timeout = 0.001) {
   address <- osrmr:::server_address(localhost)
   Sys.sleep(timeout)
 
@@ -52,7 +53,7 @@ route <- function(lat1, lng1, lat2, lng2, localhost, instructions = FALSE, timeo
       assertthat::assert_that(assertthat::is.number(res$routes[[1]]$duration))
       return(res$routes[[1]]$duration)
     } else {
-      t_guess <- 16*60
+      t_guess <- 16*60  #.............. This is really bad. Calculate time at speed 20 km/h
       warning("Route not found: ", paste(lat1, lng1, lat2, lng2, collapse = ", "),
               ". Travel time set to ", t_guess/60 , " min.")
     }

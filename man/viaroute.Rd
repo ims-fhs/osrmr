@@ -39,14 +39,14 @@ link <- "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps
 a <- rjson::fromJSON(file = link)
 
 # example with onlinehost
-osrmr:::route(47.1, 8.1, 46.9, 8.3, FALSE, 5, FALSE)
-osrmr:::route(47.1, 8.1, 46.9, 8.3, TRUE, 5, FALSE)
+osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, FALSE)
+osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, TRUE)
 
 # example with localhost
 Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
 osrmr::run_server("switzerland-latest.osrm")
-osrmr::route(47.1, 8.1, 46.9, 8.3, FALSE, 5, TRUE)
-osrmr::route(47.1, 8.1, 46.9, 8.3, TRUE, 5, TRUE)
+osrmr::viaroute(47.1, 8.1, 46.9, 8.3, TRUE, FALSE)
+osrmr::viaroute(47.1, 8.1, 46.9, 8.3, TRUE, TRUE)
 osrmr::quit_server()
 Sys.unsetenv("OSRM_PATH")}
 }

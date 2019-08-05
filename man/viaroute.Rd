@@ -20,12 +20,12 @@ viaroute(lat1, lng1, lat2, lng2, localhost, instructions = FALSE,
 
 \item{instructions}{A logical. If FALSE, only the traveltime (in seconds,
 as numeric) will be returned.
- If TRUE, the geometry of the route is returned as character.}
+ If TRUE, the whole route is returned as list}
 
 \item{timeout}{}
 }
 \value{
-a numeric or a character (depending on instructions)
+a numeric or a list (depending on instructions)
 }
 \description{
 For a given start- and end-destination, route() calculates route informations
@@ -39,8 +39,8 @@ link <- "http://router.project-osrm.org/route/v1/driving/8.1,47.1;8.3,46.9?steps
 a <- rjson::fromJSON(file = link)
 
 # example with onlinehost
-osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, FALSE)
-osrmr:::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, TRUE)
+osrmr::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, FALSE)
+osrmr::viaroute(47.1, 8.1, 46.9, 8.3, FALSE, TRUE)
 
 # example with localhost
 Sys.setenv("OSRM_PATH"="C:/OSRM_API5")

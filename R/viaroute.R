@@ -10,11 +10,11 @@
 #' @param lng2 A numeric (-180 < lng2 < 180) -> end-destination
 #' @param instructions A logical. If FALSE, only the traveltime (in seconds,
 #' as numeric) will be returned.
-#'  If TRUE, the geometry of the route is returned as character.
+#'  If TRUE, the whole route is returned as list
 #' @param localhost A logical (TRUE = localhost is used, FALSE = onlinehost is used)
 #' @param timeout
 #'
-#' @return a numeric or a character (depending on instructions)
+#' @return a numeric or a list (depending on instructions)
 #' @export
 #'
 #' @examples
@@ -58,7 +58,6 @@ viaroute <- function(lat1, lng1, lat2, lng2, localhost, instructions = FALSE, ti
               ". Travel time set to ", t_guess/60 , " min.")
     }
   } else {
-    assertthat::assert_that(assertthat::is.string(res$routes[[1]]$geometry))
-    return(res$routes[[1]]$geometry)
+    return(res)
   }
 }

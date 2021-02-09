@@ -28,10 +28,10 @@
 #' Sys.unsetenv("OSRM_PATH")}
 match <- function(coordinates, localhost){
 
-  address <- osrmr:::server_address(localhost)
+  address <- server_address(localhost)
   coordinates_char <- paste(coordinates$lng, coordinates$lat, sep = ",", collapse = ";")
   request <- paste(address, "/match/v1/driving/", coordinates_char, sep = "", NULL)
-  res <- osrmr:::make_request(request)
+  res <- make_request(request)
 
   result <- data.frame(lat=numeric(), lng=numeric(), stringsAsFactors = FALSE)
   for (i in 1:nrow(coordinates)){

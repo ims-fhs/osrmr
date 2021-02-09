@@ -35,7 +35,7 @@
 #' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH")}
 viaroute <- function(lat1, lng1, lat2, lng2, localhost, instructions = FALSE, timeout = 0.001) {
-  address <- osrmr:::server_address(localhost)
+  address <- server_address(localhost)
   Sys.sleep(timeout)
 
   if (!instructions) {
@@ -46,7 +46,7 @@ viaroute <- function(lat1, lng1, lat2, lng2, localhost, instructions = FALSE, ti
                      "?overview=full", sep = "", NULL)
   }
 
-  res <- osrmr:::make_request(request)
+  res <- make_request(request)
 
   if (!instructions) {
     if (res$code == "Ok") {

@@ -32,10 +32,10 @@
 #' Sys.unsetenv("OSRM_PATH")}
 trip <- function(coordinates, localhost){
 
-  address <- osrmr:::server_address(localhost)
+  address <- server_address(localhost)
   coordinates_char <- paste(coordinates$lng, coordinates$lat, sep = ",", collapse = ";")
   request <- paste(address, "/trip/v1/driving/", coordinates_char, sep = "", NULL)
-  res <- osrmr:::make_request(request)
+  res <- make_request(request)
 
   trip_index <- rep(NA,(nrow(coordinates)))
   for (i in 1:nrow(coordinates)){

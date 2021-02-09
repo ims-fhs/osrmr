@@ -10,26 +10,32 @@
 #' @param localhost, A logical (TRUE = localhost is used, FALSE = onlinehost is used)
 #' @param timeout A numeric indicating the timeout between server requests (in order to prevent queue overflows). Default is 0.001s.
 #'
-#' @return A data.frame with lat and lng
+#' @return A data.frame with lat and lng of the nearest location
 #' @export
 #'
 #' @examples
 #' \dontrun{
+#' # example with onlinehost API 5
 #' osrmr::nearest(47,9, 5, FALSE)
 #'
-#' Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
-#' osrmr::run_server(Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
+#' # example with localhost API 5
+#' Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
+#' osrmr::run_server("switzerland-latest.osrm")
 #' osrmr::nearest(47,9, 5, TRUE)
 #' osrmr::quit_server()
-#' Sys.unsetenv("OSRM_PATH_API_5")
+#' Sys.unsetenv("OSRM_PATH")
 #'
-#' Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
-#' osrmr::run_server(Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
+#' Sys.setenv("OSRM_PATH"="C:/OSRM_API4")
+#' osrmr::run_server("switzerland-latest.osrm")
 #' osrmr::nearest(47,9, 4, TRUE)
 #' osrmr::quit_server()
-#' Sys.unsetenv("OSRM_PATH_API_4")}
+#' Sys.unsetenv("OSRM_PATH")}
 nearest <- function(lat, lng, api_version = 5, localhost = F, timeout = 0.001) {
-  assertthat::assert_that(api_version %in% c(4,5))
+  if (!missing(api_version)) {
+    assertthat::assert_that(api_version %in% c(4,5))
+    warning("argument 'api_version' is deprecated; After the next release only API5 will be available",
+            call. = FALSE)
+  }
 
   address <- server_address(localhost)
   Sys.sleep(timeout)

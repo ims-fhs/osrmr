@@ -11,7 +11,7 @@ test_that("microbenchmark test for osrm package", {
   if(localhost) { run_server(osrm_path) }
 
   t1 <- summary(microbenchmark::microbenchmark(
-    osrmr::viaroute(lat1, lng1, lat2, lng2, F, api_version, localhost),
+    osrmr::viaroute(lat1, lng1, lat2, lng2, F, localhost),
     times = 50L, unit = "ms"))$uq
   expect_equal(t1 < 400, T)
 

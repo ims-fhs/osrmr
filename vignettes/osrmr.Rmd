@@ -113,10 +113,10 @@ more details of the route (as list), by setting the parameter `instructions`.
 
 ```{r, eval = FALSE}
 viaroute(lat1 = 47.1, lng1 = 8.1, lat2 = 46.9, lng2 = 8.3, instructions = FALSE,
-         api_version = 5, localhost = FALSE)
+         localhost = FALSE)
 
 viaroute(lat1 = 47.1, lng1 = 8.1, lat2 = 46.9, lng2 = 8.3, instructions = TRUE,
-         api_version = 5, localhost = FALSE)
+         localhost = FALSE)
 ```
 
 

@@ -18,7 +18,7 @@ nearest(lat, lng, api_version = 5, localhost = F, timeout = 0.001)
 \item{timeout}{A numeric indicating the timeout between server requests (in order to prevent queue overflows). Default is 0.001s.}
 }
 \value{
-A data.frame with lat and lng
+A data.frame with lat and lng of the nearest location
 }
 \description{
 nearest() calculates the nearest position to the given coordinates which can be accessed by car.
@@ -27,17 +27,19 @@ not with the 'OSRM' webserver.
 }
 \examples{
 \dontrun{
+# example with onlinehost API 5
 osrmr::nearest(47,9, 5, FALSE)
 
-Sys.setenv("OSRM_PATH_API_5"="C:/OSRM_API5")
-osrmr::run_server(Sys.getenv("OSRM_PATH_API_5"), "switzerland-latest.osrm")
+# example with localhost API 5
+Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
+osrmr::run_server("switzerland-latest.osrm")
 osrmr::nearest(47,9, 5, TRUE)
 osrmr::quit_server()
-Sys.unsetenv("OSRM_PATH_API_5")
+Sys.unsetenv("OSRM_PATH")
 
-Sys.setenv("OSRM_PATH_API_4"="C:/OSRM_API4")
-osrmr::run_server(Sys.getenv("OSRM_PATH_API_4"), "switzerland-latest.osrm")
+Sys.setenv("OSRM_PATH"="C:/OSRM_API4")
+osrmr::run_server("switzerland-latest.osrm")
 osrmr::nearest(47,9, 4, TRUE)
 osrmr::quit_server()
-Sys.unsetenv("OSRM_PATH_API_4")}
+Sys.unsetenv("OSRM_PATH")}
 }

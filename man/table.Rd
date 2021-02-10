@@ -4,7 +4,7 @@
 \alias{table}
 \title{Calculate a distance matrix for given coordinates}
 \usage{
-table(coordinates, localhost)
+table(coordinates, localhost, t_max = 1)
 }
 \arguments{
 \item{coordinates}{A data.frame with 3 columns: id, lat, lng.
@@ -14,6 +14,9 @@ Lat and lng are coordinates in WGS84-format - numeric.
 (-180 < lng <180)}
 
 \item{localhost}{A logical(TRUE-localhost is used, FALSE=onlinehost is used)}
+
+\item{t_max}{An integer, maximal time in seconds to wait for answer from server -
+see function osrmr:::make_request()}
 }
 \value{
 A matrix with the duration of all pairs of supplied coordinates

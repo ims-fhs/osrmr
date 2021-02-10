@@ -27,10 +27,12 @@ run_server <- function(map_name, osrm_path = Sys.getenv("OSRM_PATH")){
   setwd(osrm_path)
 
   if (.Platform$OS.type == "windows") {
-    error_code <- shell(paste0("osrm-routed ", map_name, " >nul 2>nul"), wait = F)
+    # https://gis.stackexchange.com/questions/178669/how-can-i-increase-limits-of-osrm-table-function
+    error_code <- shell(paste0("osrm-routed --max-table-size=1000 ", map_name, " >nul 2>nul"), wait = F)
   } else {
     error_code <- system(paste0(
-      osrm_path, "osrm-routed ", map_name), wait = F)
+      # https://gis.stackexchange.com/questions/178669/how-can-i-increase-limits-of-osrm-table-function
+      osrm_path, "osrm-routed --max-table-size=1000 ", map_name), wait = F)
   }
 
   Sys.sleep(3) # OSRM needs time
@@ -88,14 +90,15 @@ server_address <- function(use_localhost) {
 #' server (online- or localhost) doesn't work properly. In this case the error message is
 #' returned and connections are closed using base::closeAllConnections().
 #'
-#' If the asked server doesn't react within 1 second, a warning is thrown using
-#' R.utils::withTimeout(..., timeout = 1)
+#' If the asked server doesn't react within "t_max" seconds, a warning is thrown using
+#' R.utils::withTimeout(..., t_max = t_max). t_max is initially set to 1sec.
 #'
 #' @param request A character
+#' @param t_max An integer, t_max after which an warning/error is thrown.
 #'
 #' @return A list. The dimension of the list depends on the request and wether the server reacted
 #' properly or not.
-make_request <- function(request) {
+make_request <- function(request, t_max = 1) {
   R.utils::withTimeout({
     res <- tryCatch(
       {
@@ -112,7 +115,7 @@ make_request <- function(request) {
         stop(cond)
       }
     )},
-    timeout = 1, onTimeout = "warning")
+    timeout = t_max, onTimeout = "warning")
   return(res)
 }
 

@@ -13,6 +13,8 @@
 #' (-90 < lat < 90)
 #' (-180 < lng <180)
 #' @param localhost A logical(TRUE-localhost is used, FALSE=onlinehost is used)
+#' @param t_max An integer, maximal time in seconds to wait for answer from server -
+#' see function osrmr:::make_request()
 #'
 #' @return A numeric vector giving the trip-index for every input-coordinate
 #' @export
@@ -30,12 +32,12 @@
 #' osrmr::trip(coordinates,T)
 #' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH")}
-trip <- function(coordinates, localhost){
+trip <- function(coordinates, localhost, t_max = 1){
 
   address <- server_address(localhost)
   coordinates_char <- paste(coordinates$lng, coordinates$lat, sep = ",", collapse = ";")
   request <- paste(address, "/trip/v1/driving/", coordinates_char, sep = "", NULL)
-  res <- make_request(request)
+  res <- make_request(request, t_max = t_max)
 
   trip_index <- rep(NA,(nrow(coordinates)))
   for (i in 1:nrow(coordinates)){

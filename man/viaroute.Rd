@@ -11,7 +11,8 @@ viaroute(
   lng2,
   localhost,
   instructions = FALSE,
-  timeout = 0.001
+  timeout = 0.001,
+  t_max = 1
 )
 }
 \arguments{
@@ -29,7 +30,10 @@ viaroute(
 as numeric) will be returned.
  If TRUE, the whole route is returned as list}
 
-\item{timeout}{}
+\item{timeout}{A numeric indicating the timeout between server requests (in order to prevent queue overflows). Default is 0.001s.}
+
+\item{t_max}{An integer, maximal time in seconds to wait for answer from server -
+see function osrmr:::make_request()}
 }
 \value{
 a numeric or a list (depending on instructions)

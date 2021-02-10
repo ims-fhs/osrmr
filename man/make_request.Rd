@@ -4,10 +4,12 @@
 \alias{make_request}
 \title{Run one server request for OSRM (online- or localhost)}
 \usage{
-make_request(request)
+make_request(request, t_max = 1)
 }
 \arguments{
 \item{request}{A character}
+
+\item{t_max}{An integer, t_max after which an warning/error is thrown.}
 }
 \value{
 A list. The dimension of the list depends on the request and wether the server reacted
@@ -19,6 +21,6 @@ server (online- or localhost) doesn't work properly. In this case the error mess
 returned and connections are closed using base::closeAllConnections().
 }
 \details{
-If the asked server doesn't react within 1 second, a warning is thrown using
-R.utils::withTimeout(..., timeout = 1)
+If the asked server doesn't react within "t_max" seconds, a warning is thrown using
+R.utils::withTimeout(..., t_max = t_max). t_max is initially set to 1sec.
 }

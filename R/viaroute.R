@@ -12,7 +12,9 @@
 #' as numeric) will be returned.
 #'  If TRUE, the whole route is returned as list
 #' @param localhost A logical (TRUE = localhost is used, FALSE = onlinehost is used)
-#' @param timeout
+#' @param timeout A numeric indicating the timeout between server requests (in order to prevent queue overflows). Default is 0.001s.
+#' @param t_max An integer, maximal time in seconds to wait for answer from server -
+#' see function osrmr:::make_request()
 #'
 #' @return a numeric or a list (depending on instructions)
 #' @export
@@ -34,7 +36,8 @@
 #' osrmr::viaroute(47.1, 8.1, 46.9, 8.3, TRUE, TRUE)
 #' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH")}
-viaroute <- function(lat1, lng1, lat2, lng2, localhost, instructions = FALSE, timeout = 0.001) {
+viaroute <- function(lat1, lng1, lat2, lng2, localhost, instructions = FALSE, timeout = 0.001,
+                     t_max = 1) {
   address <- server_address(localhost)
   Sys.sleep(timeout)
 
@@ -46,7 +49,7 @@ viaroute <- function(lat1, lng1, lat2, lng2, localhost, instructions = FALSE, ti
                      "?overview=full", sep = "", NULL)
   }
 
-  res <- make_request(request)
+  res <- make_request(request, t_max = t_max)
 
   if (!instructions) {
     if (res$code == "Ok") {

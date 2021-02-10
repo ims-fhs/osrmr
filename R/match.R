@@ -9,6 +9,8 @@
 #' (-90 < lat < 90)
 #' (-180 < lng <180)
 #' @param localhost A logical(TRUE-localhost is used, FALSE=onlinehost is used)
+#' @param t_max An integer, maximal time in seconds to wait for answer from server -
+#' see function osrmr:::make_request()
 #'
 #' @return A data.frame with the new coordinates
 #' @export
@@ -26,12 +28,12 @@
 #' osrmr::match(coordinates,T)
 #' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH")}
-match <- function(coordinates, localhost){
+match <- function(coordinates, localhost, t_max = 1){
 
   address <- server_address(localhost)
   coordinates_char <- paste(coordinates$lng, coordinates$lat, sep = ",", collapse = ";")
   request <- paste(address, "/match/v1/driving/", coordinates_char, sep = "", NULL)
-  res <- make_request(request)
+  res <- make_request(request, t_max = t_max)
 
   result <- data.frame(lat=numeric(), lng=numeric(), stringsAsFactors = FALSE)
   for (i in 1:nrow(coordinates)){

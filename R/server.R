@@ -28,7 +28,8 @@ run_server <- function(map_name, osrm_path = Sys.getenv("OSRM_PATH")){
 
   if (.Platform$OS.type == "windows") {
     # https://gis.stackexchange.com/questions/178669/how-can-i-increase-limits-of-osrm-table-function
-    error_code <- shell(paste0("osrm-routed --max-table-size=1000 ", map_name, " >nul 2>nul"), wait = F)
+    # error_code <- shell(paste0("osrm-routed --max-table-size=1000 ", map_name, " >nul 2>nul"), wait = F)
+    error_code <- shell(paste0("osrm-routed ", map_name, ""), wait = FALSE)
   } else {
     error_code <- system(paste0(
       # https://gis.stackexchange.com/questions/178669/how-can-i-increase-limits-of-osrm-table-function

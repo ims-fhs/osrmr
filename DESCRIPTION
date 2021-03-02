@@ -1,8 +1,8 @@
 Package: osrmr
 Type: Package
 Title: Wrapper for the 'OSRM' API
-Version: 0.2.10
-Date: 2021-02-09
+Version: 0.2.15
+Date: 2021-03-02
 Author: Adrian Staempfli, Christoph Strauss
 Maintainer: Adrian Staempfli <adrian.staempfli@fhsg.ch>
 Description: Wrapper around the 'Open Source Routing Machine (OSRM)'

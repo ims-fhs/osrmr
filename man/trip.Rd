@@ -4,7 +4,7 @@
 \alias{trip}
 \title{Find a solution for the TSP (Traveling Salesman Problem)}
 \usage{
-trip(coordinates, localhost)
+trip(coordinates, localhost, t_max = 10)
 }
 \arguments{
 \item{coordinates}{A data.frame with 2 columns: lat, lng.
@@ -13,6 +13,9 @@ lat and lng are coordinates in WGS84-format - numeric.
 (-180 < lng <180)}
 
 \item{localhost}{A logical(TRUE-localhost is used, FALSE=onlinehost is used)}
+
+\item{t_max}{An integer, maximal time in seconds to wait for answer from server -
+see function osrmr:::make_request()}
 }
 \value{
 A numeric vector giving the trip-index for every input-coordinate

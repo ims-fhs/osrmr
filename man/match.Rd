@@ -4,7 +4,7 @@
 \alias{match}
 \title{Match GPS points to the road network in the most plaubislbe way}
 \usage{
-match(coordinates, localhost)
+match(coordinates, localhost, t_max = 10)
 }
 \arguments{
 \item{coordinates}{A data.frame with 2 columns "lat", "lng", giving a set of WGS84 coordinates.
@@ -12,6 +12,9 @@ match(coordinates, localhost)
 (-180 < lng <180)}
 
 \item{localhost}{A logical(TRUE-localhost is used, FALSE=onlinehost is used)}
+
+\item{t_max}{An integer, maximal time in seconds to wait for answer from server -
+see function osrmr:::make_request()}
 }
 \value{
 A data.frame with the new coordinates

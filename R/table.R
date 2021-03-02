@@ -10,6 +10,8 @@
 #' (-90 < lat < 90)
 #' (-180 < lng <180)
 #' @param localhost A logical(TRUE-localhost is used, FALSE=onlinehost is used)
+#' @param t_max An integer, maximal time in seconds to wait for answer from server -
+#' see function osrmr:::make_request()
 #'
 #' @return A matrix with the duration of all pairs of supplied coordinates
 #' (Entry (i,j) gives the duration from point i to point j)
@@ -30,11 +32,11 @@
 #' osrmr::table(coordinates,T)
 #' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH")}
-table <- function(coordinates, localhost){
+table <- function(coordinates, localhost, t_max = 1){
   address <- server_address(localhost)
   coordinates_char <- paste(coordinates$lng, coordinates$lat, sep = ",", collapse = ";")
   request <- paste(address, "/table/v1/driving/", coordinates_char, sep = "", NULL)
-  res <- make_request(request)
+  res <- make_request(request, t_max = t_max)
   result <- matrix(unlist(res$durations), nrow = nrow(coordinates), byrow = T)
   assertthat::assert_that(nrow(result) == ncol(result))
   assertthat::assert_that(nrow(result) == nrow(coordinates))

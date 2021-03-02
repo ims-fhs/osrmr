@@ -4,7 +4,7 @@
 \alias{nearest_api_v4}
 \title{nearest accessible position for OSRM API v4}
 \usage{
-nearest_api_v4(lat, lng, address)
+nearest_api_v4(lat, lng, address, t_max = 10)
 }
 \arguments{
 \item{lat, }{A numeric (-90 < lat < 90)}
@@ -12,6 +12,9 @@ nearest_api_v4(lat, lng, address)
 \item{lng, }{A numeric (-180 < lng < 180)}
 
 \item{address, }{A character specifying the serveraddress (local or online)}
+
+\item{t_max}{An integer, maximal time in seconds to wait for anwser from server -
+see function osrmr:::make_request()}
 }
 \value{
 A data.frame with lat and lng

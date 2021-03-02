@@ -57,6 +57,8 @@ nearest <- function(lat, lng, api_version = 5, localhost = F, timeout = 0.001) {
 #' @param lat, A numeric (-90 < lat < 90)
 #' @param lng, A numeric (-180 < lng < 180)
 #' @param address, A character specifying the serveraddress (local or online)
+#' @param t_max An integer, maximal time in seconds to wait for anwser from server -
+#' see function osrmr:::make_request()
 #'
 #' @return A data.frame with lat and lng
 #'
@@ -67,9 +69,9 @@ nearest <- function(lat, lng, api_version = 5, localhost = F, timeout = 0.001) {
 #' osrmr:::nearest_api_v4(47,9, osrmr:::server_address(TRUE))
 #' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH_API_4")}
-nearest_api_v4 <- function(lat, lng, address) {
+nearest_api_v4 <- function(lat, lng, address, t_max = 10) {
   request <- paste(address, "/nearest?loc=", lat, ",", lng, sep = "", NULL)
-  nearest <- make_request(request)$mapped_coordinate
+  nearest <- make_request(request, t_max = t_max)$mapped_coordinate
   nearest <- data.frame(
     lat = nearest[1],
     lng = nearest[2]
@@ -85,6 +87,8 @@ nearest_api_v4 <- function(lat, lng, address) {
 #' @param lat, A numeric (-90 < lat < 90)
 #' @param lng, A numeric (-180 < lng < 180)
 #' @param address, A character specifying the serveraddress (local or online)
+#' @param t_max An integer, maximal time in seconds to wait for answer from server -
+#' see function osrmr:::make_request()
 #'
 #' @return A data.frame with lat and lng
 
@@ -96,9 +100,9 @@ nearest_api_v4 <- function(lat, lng, address) {
 #' osrmr:::nearest_api_v5(47,9, osrmr:::server_address(TRUE))
 #' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH_API_5")}
-nearest_api_v5 <- function(lat, lng, address) {
+nearest_api_v5 <- function(lat, lng, address, t_max = 10) {
   request <-paste(address, "/nearest/v1/driving/", lng, ",", lat, "?number=1", sep = "", NULL)
-  nearest <- make_request(request)$waypoints[[1]]$location
+  nearest <- make_request(request, t_max = t_max)$waypoints[[1]]$location
   nearest <- data.frame(
     lat = nearest[2],
     lng = nearest[1]

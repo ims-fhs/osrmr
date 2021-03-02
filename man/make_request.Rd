@@ -4,7 +4,7 @@
 \alias{make_request}
 \title{Run one server request for OSRM (online- or localhost)}
 \usage{
-make_request(request, t_max = 1)
+make_request(request, t_max)
 }
 \arguments{
 \item{request}{A character}

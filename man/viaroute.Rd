@@ -12,7 +12,7 @@ viaroute(
   localhost,
   instructions = FALSE,
   timeout = 0.001,
-  t_max = 1
+  t_max = 10
 )
 }
 \arguments{

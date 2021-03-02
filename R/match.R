@@ -28,7 +28,7 @@
 #' osrmr::match(coordinates,T)
 #' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH")}
-match <- function(coordinates, localhost, t_max = 1){
+match <- function(coordinates, localhost, t_max = 10){
 
   address <- server_address(localhost)
   coordinates_char <- paste(coordinates$lng, coordinates$lat, sep = ",", collapse = ";")

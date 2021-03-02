@@ -4,7 +4,7 @@
 \alias{trip}
 \title{Find a solution for the TSP (Traveling Salesman Problem)}
 \usage{
-trip(coordinates, localhost, t_max = 1)
+trip(coordinates, localhost, t_max = 10)
 }
 \arguments{
 \item{coordinates}{A data.frame with 2 columns: lat, lng.

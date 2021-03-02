@@ -32,5 +32,6 @@ osrmr::run_server("switzerland-latest.osrm")
 Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
 osrmr::run_server("switzerland-latest.osrm")
 # 0
+osrmr::quit_server()
 Sys.unsetenv("OSRM_PATH")}
 }

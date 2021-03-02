@@ -36,8 +36,9 @@
 #' osrmr::viaroute(47.1, 8.1, 46.9, 8.3, TRUE, TRUE)
 #' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH")}
-viaroute <- function(lat1, lng1, lat2, lng2, localhost, instructions = FALSE, timeout = 0.001,
-                     t_max = 1) {
+viaroute <- function(lat1, lng1, lat2, lng2, localhost,
+                     instructions = FALSE, timeout = 0.001,
+                     t_max = 10) {
   address <- server_address(localhost)
   Sys.sleep(timeout)
 

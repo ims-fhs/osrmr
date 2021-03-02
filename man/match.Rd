@@ -4,7 +4,7 @@
 \alias{match}
 \title{Match GPS points to the road network in the most plaubislbe way}
 \usage{
-match(coordinates, localhost, t_max = 1)
+match(coordinates, localhost, t_max = 10)
 }
 \arguments{
 \item{coordinates}{A data.frame with 2 columns "lat", "lng", giving a set of WGS84 coordinates.

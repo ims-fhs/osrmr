@@ -21,6 +21,7 @@
 #' Sys.setenv("OSRM_PATH"="C:/OSRM_API5")
 #' osrmr::run_server("switzerland-latest.osrm")
 #' # 0
+#' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH")}
 run_server <- function(map_name, osrm_path = Sys.getenv("OSRM_PATH")){
   wd <- getwd()
@@ -28,8 +29,7 @@ run_server <- function(map_name, osrm_path = Sys.getenv("OSRM_PATH")){
 
   if (.Platform$OS.type == "windows") {
     # https://gis.stackexchange.com/questions/178669/how-can-i-increase-limits-of-osrm-table-function
-    # error_code <- shell(paste0("osrm-routed --max-table-size=1000 ", map_name, " >nul 2>nul"), wait = F)
-    error_code <- shell(paste0("osrm-routed ", map_name, ""), wait = FALSE)
+    error_code <- shell(paste0("osrm-routed --max-table-size=1000 ", map_name, " >nul 2>nul"), wait = FALSE)
   } else {
     error_code <- system(paste0(
       # https://gis.stackexchange.com/questions/178669/how-can-i-increase-limits-of-osrm-table-function
@@ -99,7 +99,7 @@ server_address <- function(use_localhost) {
 #'
 #' @return A list. The dimension of the list depends on the request and wether the server reacted
 #' properly or not.
-make_request <- function(request, t_max = 1) {
+make_request <- function(request, t_max) {
   R.utils::withTimeout({
     res <- tryCatch(
       {

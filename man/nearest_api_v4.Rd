@@ -4,7 +4,7 @@
 \alias{nearest_api_v4}
 \title{nearest accessible position for OSRM API v4}
 \usage{
-nearest_api_v4(lat, lng, address, t_max = 1)
+nearest_api_v4(lat, lng, address, t_max = 10)
 }
 \arguments{
 \item{lat, }{A numeric (-90 < lat < 90)}

@@ -32,7 +32,7 @@
 #' osrmr::trip(coordinates,T)
 #' osrmr::quit_server()
 #' Sys.unsetenv("OSRM_PATH")}
-trip <- function(coordinates, localhost, t_max = 1){
+trip <- function(coordinates, localhost, t_max = 10){
 
   address <- server_address(localhost)
   coordinates_char <- paste(coordinates$lng, coordinates$lat, sep = ",", collapse = ";")

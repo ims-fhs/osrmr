@@ -11,7 +11,8 @@ test_that("viaroute finds routes", {
   if (localhost) {
     run_server(osrm_path = osrm_path, map_name = map_name)
   }
-  r <- viaroute(lat1, lng1, lat2, lng2, localhost = TRUE, instructions = FALSE, t_max = 10)
+  r <- viaroute(lat1, lng1, lat2, lng2, localhost = TRUE,
+                instructions = FALSE, t_max = 10)
   expect_equal(class(r), "numeric")
   expect_equal(length(r), 1)
   r <- viaroute(lat1, lng1, lat2, lng2, localhost = TRUE, instructions = TRUE)

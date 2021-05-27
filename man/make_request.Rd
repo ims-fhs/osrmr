@@ -18,7 +18,7 @@ properly or not.
 \description{
 In order to fail gracefully, this function handles errors and warnings if the asked
 server (online- or localhost) doesn't work properly. In this case the error message is
-returned and connections are closed using base::closeAllConnections().
+returned.
 }
 \details{
 If the asked server doesn't react within "t_max" seconds, a warning is thrown using

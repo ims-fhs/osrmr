@@ -1,6 +1,6 @@
 context("viaroute")
 test_that("viaroute finds routes", {
-  # skip("Skip for development of tests")
+  skip("Skip for development of tests")
 
   lat1 <- 47.168
   lng1 <- 8.117

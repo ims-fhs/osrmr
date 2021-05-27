@@ -89,7 +89,7 @@ server_address <- function(use_localhost) {
 #'
 #' In order to fail gracefully, this function handles errors and warnings if the asked
 #' server (online- or localhost) doesn't work properly. In this case the error message is
-#' returned and connections are closed using base::closeAllConnections().
+#' returned.
 #'
 #' If the asked server doesn't react within "t_max" seconds, a warning is thrown using
 #' R.utils::withTimeout(..., t_max = t_max). t_max is initially set to 1sec.
@@ -106,13 +106,11 @@ make_request <- function(request, t_max) {
         rjson::fromJSON(file = request)
       },
       error = function(cond) {
-        message("Error:  OSRM Server doesn't react. All connections closed manually")
-        closeAllConnections()
+        message("Error:  OSRM Server doesn't react.")
         stop(cond)
       },
       warning = function(cond) {
-        message("Warning: OSRM Server doesn't react. All connections closed manually")
-        closeAllConnections()
+        message("Warning: OSRM Server doesn't react.")
         stop(cond)
       }
     )},

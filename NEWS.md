@@ -1,3 +1,7 @@
+# osrmr 0.2.17
+
+* remove all calls to 'closeAllConnections' as necessary fix in order to remain on CRAN
+
 # osrmr 0.1.35
 
 * Introduce an optional parameter 'timeout' for the functions 'viaroute' and 'nearest' that is preset to 0.001s. This prevents errors from server queue overflows.

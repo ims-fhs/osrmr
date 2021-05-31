@@ -1,4 +1,4 @@
-# osrmr 0.2.17
+# osrmr 0.1.36
 
 * remove all calls to 'closeAllConnections' as necessary fix in order to remain on CRAN
 

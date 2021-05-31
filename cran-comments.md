@@ -9,7 +9,7 @@
 ## Reverse dependencies
 
 There are no reverse dependencies affected.
-This version does avoid calls to 'closeAllConnections' as necessary change in order to remain on CRAN.
-Moreover this version introduces minor API changes ...
+This version avoids calls to 'closeAllConnections' as necessary change in order to remain on CRAN.
+The API is unchanged.
 
 ---

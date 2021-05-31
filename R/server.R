@@ -102,13 +102,11 @@ make_request <- function(request) {
         rjson::fromJSON(file = request)
       },
       error = function(cond) {
-        message("Error:  OSRM Server doesn't react. All connections closed manually")
-        closeAllConnections()
+        message("Error:  OSRM Server doesn't react.")
         stop(cond)
       },
       warning = function(cond) {
-        message("Warning: OSRM Server doesn't react. All connections closed manually")
-        closeAllConnections()
+        message("Warning: OSRM Server doesn't react.")
         stop(cond)
       }
     )},
